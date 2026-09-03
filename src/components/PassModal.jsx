@@ -48,7 +48,7 @@ export default function PassModal({ isOpen, onClose }) {
                 style={{ width: '44px', height: '44px', objectFit: 'contain', filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.8))' }}
               />
               <div>
-                <span className="live-badge" style={{ background: 'rgba(255,0,127,0.12)', borderColor: 'rgba(255,0,127,0.35)', color: 'var(--color-neon-pink)', marginBottom: '0.2rem', padding: '0.2rem 0.5rem', fontSize: '10px' }}>
+                <span className="live-badge" style={{ background: 'rgba(255, 0, 127, 0.15)', borderColor: 'rgba(255, 0, 127, 0.4)', color: 'var(--primary)', marginBottom: '0.2rem', padding: '0.25rem 0.75rem', fontSize: '10px', borderRadius: '9999px' }}>
                   Pase de Cortesía 1 Día
                 </span>
                 <h3 className="font-display text-white" style={{ fontSize: '1.85rem', textTransform: 'uppercase', lineHeight: '1' }}>
@@ -56,7 +56,7 @@ export default function PassModal({ isOpen, onClose }) {
                 </h3>
               </div>
             </div>
-            <p className="text-muted" style={{ fontSize: '12px', marginBottom: '1.25rem' }}>
+            <p className="text-muted" style={{ fontSize: '13px', marginBottom: '1.25rem' }}>
               Entrena un día completo sin costo en la sede de tu elección en Manta. Sin compromiso.
             </p>
 
@@ -112,7 +112,7 @@ export default function PassModal({ isOpen, onClose }) {
               </div>
 
               <div style={{ paddingTop: '0.75rem' }}>
-                <button type="submit" className="btn-neon neon-glow" style={{ width: '100%', padding: '1rem', fontSize: '1.15rem' }}>
+                <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.9rem', fontSize: '1.05rem' }}>
                   Generar Pase Digital Instantáneo →
                 </button>
               </div>
@@ -120,8 +120,8 @@ export default function PassModal({ isOpen, onClose }) {
           </div>
         ) : (
           <div style={{ textAlign: 'center', padding: '1rem 0' }}>
-            <div style={{ width: '54px', height: '54px', backgroundColor: 'rgba(255, 0, 127, 0.15)', border: '2px solid var(--color-neon-pink)', color: 'var(--color-neon-pink)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <div style={{ width: '56px', height: '56px', backgroundColor: 'rgba(255, 0, 127, 0.15)', border: '2px solid var(--primary)', borderRadius: '50%', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
@@ -130,16 +130,16 @@ export default function PassModal({ isOpen, onClose }) {
               <h3 className="font-display text-white" style={{ fontSize: '2rem', textTransform: 'uppercase' }}>
                 ¡PASE GENERADO CON ÉXITO!
               </h3>
-              <p className="text-muted" style={{ fontSize: '12px', marginTop: '0.25rem' }}>
+              <p className="text-muted" style={{ fontSize: '13px', marginTop: '0.25rem' }}>
                 Presenta este código digital en la recepción de tu sede elegida.
               </p>
             </div>
 
             {/* Voucher Card */}
-            <div className="stripes-pattern" style={{ background: 'var(--color-dark)', border: '1px solid var(--color-slate)', padding: '1.25rem', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
+            <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-md)', padding: '1.35rem', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
                 <span className="text-muted" style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>Ticket ID:</span>
-                <span className="font-mono text-pink" style={{ fontWeight: 'bold', letterSpacing: '0.05em' }}>{ticket.id}</span>
+                <span className="font-mono" style={{ fontWeight: 'bold', letterSpacing: '0.05em', color: 'var(--primary)' }}>{ticket.id}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
                 <span className="text-muted" style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>Beneficiario:</span>
@@ -147,7 +147,7 @@ export default function PassModal({ isOpen, onClose }) {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
                 <span className="text-muted" style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>Sede Asignada:</span>
-                <span className="text-yellow" style={{ fontWeight: 'bold' }}>{ticket.location}</span>
+                <span style={{ fontWeight: 'bold', color: 'var(--accent)' }}>{ticket.location}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
                 <span className="text-muted" style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>Vigencia:</span>
@@ -160,7 +160,7 @@ export default function PassModal({ isOpen, onClose }) {
                 href={ticket.whatsappUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="btn-neon"
+                className="btn btn-primary"
                 style={{ width: '100%', padding: '0.9rem', fontSize: '1rem' }}
               >
                 Confirmar Reserva por WhatsApp Ahora →

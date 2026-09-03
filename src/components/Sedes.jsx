@@ -18,10 +18,10 @@ export default function Sedes() {
         
         <div className="section-header">
           <div className="section-tag">
-            <span>// 01 — Red de Sedes & Cobertura Geográfica</span>
+            <span>Red de Sedes • Cobertura en Manta</span>
           </div>
           <h2 className="section-title">
-            DOS PUNTOS ESTRATÉGICOS <span className="text-neon">EN MANTA.</span>
+            DOS PUNTOS ESTRATÉGICOS <span className="text-gradient">EN MANTA.</span>
           </h2>
           <p className="section-desc">
             Instalaciones climatizadas, equipamiento biomecánico, peso libre y amplios espacios interconectados en las arterias viales principales de Manta.
@@ -40,17 +40,17 @@ export default function Sedes() {
               <div className="branch-img-overlay"></div>
               
               <div className="branch-badge-top">
-                <span style={{ padding: '0.25rem 0.6rem', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--color-cyber-yellow)', color: '#050505' }}>
+                <span style={{ padding: '0.3rem 0.8rem', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--accent)', color: '#050505', borderRadius: '9999px' }}>
                   Sede ULEAM
                 </span>
-                <span style={{ padding: '0.25rem 0.6rem', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'rgba(22, 24, 30, 0.85)', color: '#FFF', border: '1px solid var(--color-slate)', backdropFilter: 'blur(8px)' }}>
+                <span style={{ padding: '0.3rem 0.8rem', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'rgba(22, 24, 30, 0.85)', color: '#FFF', border: '1px solid var(--border-light)', backdropFilter: 'blur(8px)', borderRadius: '9999px' }}>
                   Zona Universitaria
                 </span>
               </div>
 
               <div className="branch-title-wrap">
                 <div>
-                  <span className="text-yellow font-mono" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 'bold' }}>
+                  <span className="font-mono" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 'bold', color: 'var(--accent)' }}>
                     Av. Circunvalación
                   </span>
                   <h3 className="font-display text-white" style={{ fontSize: '2.25rem', textTransform: 'uppercase' }}>
@@ -76,7 +76,7 @@ export default function Sedes() {
                   </div>
                   <div>
                     <span className="specs-label">Horario Lun–Vie:</span>
-                    <span className="font-mono text-yellow" style={{ fontWeight: 'bold' }}>05:30 — 22:30</span>
+                    <span className="font-mono" style={{ fontWeight: 'bold', color: 'var(--accent)' }}>05:30 — 22:30</span>
                   </div>
                   <div>
                     <span className="specs-label">Sábados:</span>
@@ -101,7 +101,7 @@ export default function Sedes() {
                   <div className="branch-location-info">
                     <div className="location-pin-title font-mono">
                       <span className="ping-indicator ping-indicator-yellow"></span>
-                      <span style={{ color: 'var(--color-cyber-yellow)' }}>FRENTE A ULEAM</span>
+                      <span style={{ color: 'var(--accent)' }}>FRENTE A ULEAM</span>
                       <span className="text-muted" style={{ fontWeight: 'normal', fontSize: '10px' }}>(-0.9538, -80.7475)</span>
                     </div>
                     <span className="location-landmark">Av. Circunvalación • Puerta Principal</span>
@@ -120,10 +120,10 @@ export default function Sedes() {
 
               {/* Actions */}
               <div className="branch-actions">
-                <a href="https://maps.google.com/?q=-0.953768,-80.747514" target="_blank" rel="noopener noreferrer" className="btn-outline btn-outline-yellow" style={{ fontSize: '0.75rem', padding: '0.75rem' }}>
+                <a href="https://maps.google.com/?q=-0.953768,-80.747514" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ fontSize: '0.85rem' }}>
                   Abrir en Google Maps ↗
                 </a>
-                <a href="https://wa.me/593987654321?text=Hola%20Master%20Gym%20Manta!%20Quiero%20visitar%20la%20Sede%20ULEAM" target="_blank" rel="noopener noreferrer" className="btn-yellow" style={{ fontSize: '0.75rem', padding: '0.75rem' }}>
+                <a href="https://wa.me/593987654321?text=Hola%20Master%20Gym%20Manta!%20Quiero%20visitar%20la%20Sede%20ULEAM" target="_blank" rel="noopener noreferrer" className="btn btn-yellow" style={{ fontSize: '0.85rem' }}>
                   Escribir a Sede ULEAM
                 </a>
               </div>
@@ -140,17 +140,17 @@ export default function Sedes() {
               <div className="branch-img-overlay"></div>
               
               <div className="branch-badge-top">
-                <span style={{ padding: '0.25rem 0.6rem', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--color-neon-pink)', color: '#050505' }}>
+                <span style={{ padding: '0.3rem 0.8rem', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--primary)', color: '#ffffff', borderRadius: '9999px' }}>
                   Sede La Proaño
                 </span>
-                <span style={{ padding: '0.25rem 0.6rem', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'rgba(22, 24, 30, 0.85)', color: '#FFF', border: '1px solid var(--color-slate)', backdropFilter: 'blur(8px)' }}>
+                <span style={{ padding: '0.3rem 0.8rem', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'rgba(22, 24, 30, 0.85)', color: '#FFF', border: '1px solid var(--border-light)', backdropFilter: 'blur(8px)', borderRadius: '9999px' }}>
                   Parqueo Privado
                 </span>
               </div>
 
               <div className="branch-title-wrap">
                 <div>
-                  <span className="text-pink font-mono" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 'bold' }}>
+                  <span className="font-mono" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 'bold', color: 'var(--primary)' }}>
                     Sector La Proaño
                   </span>
                   <h3 className="font-display text-white" style={{ fontSize: '2.25rem', textTransform: 'uppercase' }}>
@@ -176,7 +176,7 @@ export default function Sedes() {
                   </div>
                   <div>
                     <span className="specs-label">Horario Lun–Vie:</span>
-                    <span className="font-mono text-neon" style={{ fontWeight: 'bold' }}>05:30 — 22:30</span>
+                    <span className="font-mono" style={{ fontWeight: 'bold', color: 'var(--primary)' }}>05:30 — 22:30</span>
                   </div>
                   <div>
                     <span className="specs-label">Sábados:</span>
@@ -201,8 +201,8 @@ export default function Sedes() {
                   <div className="branch-location-info">
                     <div className="location-pin-title font-mono">
                       <span className="ping-indicator"></span>
-                      <span style={{ color: 'var(--color-neon-pink)' }}>BARRIO LA PROAÑO</span>
-                      <span className="text-muted" style={{ fontWeight: 'normal', fontSize: '10px' }}>(-0.9612, -80.7085)</span>
+                      <span style={{ color: 'var(--primary)' }}>BARRIO LA PROAÑO</span>
+                      <span className="text-muted" style={{ fontWeight: 'normal', fontSize: '10px' }}>(-0.9969, -80.6995)</span>
                     </div>
                     <span className="location-landmark">Sector La Pradera • Parqueo 40+ autos</span>
                   </div>
@@ -220,10 +220,10 @@ export default function Sedes() {
 
               {/* Actions */}
               <div className="branch-actions">
-                <a href="https://maps.google.com/?q=-0.961215,-80.708492" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ fontSize: '0.75rem', padding: '0.75rem' }}>
+                <a href="https://maps.google.com/?q=-0.996944,-80.699528" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ fontSize: '0.85rem' }}>
                   Abrir en Google Maps ↗
                 </a>
-                <a href="https://wa.me/593987654322?text=Hola%20Master%20Gym%20Manta!%20Quiero%20visitar%20la%20Sede%20La%20Proa%C3%B1o" target="_blank" rel="noopener noreferrer" className="btn-neon" style={{ fontSize: '0.75rem', padding: '0.75rem' }}>
+                <a href="https://wa.me/593987654322?text=Hola%20Master%20Gym%20Manta!%20Quiero%20visitar%20la%20Sede%20La%20Proa%C3%B1o" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ fontSize: '0.85rem' }}>
                   Escribir a Sede La Proaño
                 </a>
               </div>
@@ -244,12 +244,8 @@ export default function Sedes() {
                 MAPA INTERACTIVO & RUTAS EN MANTA
               </h3>
               <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginTop: '0.25rem' }}>
-                Explora la ubicación de ambas sedes, corredor vial de 4.8 km y accesos estratégicos en el cantón.
+                Explora la ubicación de ambas sedes y sus accesos estratégicos en el cantón Manta.
               </p>
-            </div>
-            <div className="font-mono text-muted master-map-badge">
-              <span className="ping-indicator"></span>
-              <span style={{ color: 'var(--color-light)' }}>OpenStreetMap + Leaflet</span>
             </div>
           </div>
 

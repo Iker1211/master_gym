@@ -44,33 +44,33 @@ export default function Faq() {
           {/* Left Column: Social Proof & Heading */}
           <div>
             <div className="section-tag">
-              <span>// 04 — Testimonios Reales</span>
+              <span>Comunidad • Testimonios Reales</span>
             </div>
             <h2 className="section-title">
-              LO QUE DICE NUESTRA <span className="text-neon">COMUNIDAD.</span>
+              LO QUE DICE NUESTRA <span className="text-gradient">COMUNIDAD.</span>
             </h2>
             <p className="section-desc" style={{ marginBottom: '2rem' }}>
               Más de 850 atletas, estudiantes universitarios y familias entrenan semanalmente en nuestras dos sedes de Manta.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ background: 'var(--color-dark)', padding: '1.25rem', border: '1px solid var(--color-border)' }}>
+              <div style={{ background: 'var(--bg-glass-card)', backdropFilter: 'blur(14px)', padding: '1.4rem', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-card)' }}>
                 <p style={{ fontSize: '13px', fontStyle: 'italic', color: 'rgba(244, 244, 246, 0.85)', lineHeight: '1.6' }}>
                   "La cercanía a la facultad de la ULEAM es inmejorable. Salgo de clases y entreno sin perder tiempo. Las máquinas de peso libre y las barras olímpicas están a otro nivel."
                 </p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.75rem', fontSize: '11px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.85rem', fontSize: '11px' }}>
                   <strong style={{ color: '#FFF' }}>Mateo Cevallos</strong>
-                  <span className="font-mono text-neon">Estudiante Medicina ULEAM</span>
+                  <span className="font-mono" style={{ color: 'var(--accent)', fontWeight: 'bold' }}>Estudiante Medicina ULEAM</span>
                 </div>
               </div>
 
-              <div style={{ background: 'var(--color-dark)', padding: '1.25rem', border: '1px solid var(--color-border)' }}>
+              <div style={{ background: 'var(--bg-glass-card)', backdropFilter: 'blur(14px)', padding: '1.4rem', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-card)' }}>
                 <p style={{ fontSize: '13px', fontStyle: 'italic', color: 'rgba(244, 244, 246, 0.85)', lineHeight: '1.6' }}>
                   "El parqueo privado en la sede de La Proaño da una tranquilidad total. No hay aglomeraciones para usar las máquinas y el aire acondicionado siempre está al 100%."
                 </p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.75rem', fontSize: '11px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.85rem', fontSize: '11px' }}>
                   <strong style={{ color: '#FFF' }}>Dra. Gabriela Delgado</strong>
-                  <span className="font-mono text-neon">Socia Sede La Proaño</span>
+                  <span className="font-mono" style={{ color: 'var(--primary)', fontWeight: 'bold' }}>Socia Sede La Proaño</span>
                 </div>
               </div>
             </div>

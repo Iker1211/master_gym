@@ -82,8 +82,8 @@ export const GYM_LOCATIONS: Record<'uleam' | 'proano', GymLocation> = {
     canton: 'Cantón Manta',
     sector: 'Barrio La Proaño / Sector La Pradera',
     address: 'Barrio La Proaño, Manta, Ecuador',
-    lat: -0.961215,
-    lng: -80.708492,
+    lat: -0.996944,
+    lng: -80.699528,
     zoom: 16,
     tag: 'Mega Complejo',
     badge: '1,200 m² + Parqueo',
@@ -94,7 +94,7 @@ export const GYM_LOCATIONS: Record<'uleam' | 'proano', GymLocation> = {
       sunday: '08:00 — 14:00'
     },
     highlights: ['Parqueo Privado 40+ Autos', 'Turf Funcional 30m', 'Fit Bar & Shakes', 'Cross Training'],
-    googleMapsUrl: 'https://maps.google.com/?q=-0.961215,-80.708492',
+    googleMapsUrl: 'https://maps.google.com/?q=-0.996944,-80.699528',
     whatsappUrl: 'https://wa.me/593987654322?text=Hola%20Master%20Gym%20Manta!%20Quiero%20visitar%20la%20Sede%20La%20Proa%C3%B1o',
     phone: '+593 98 765 4322',
     image: '/assets/sede_la_proano.jpg'
@@ -107,11 +107,11 @@ export const CANTON_ZONES: CantonZone[] = [
     id: 'manta-all',
     name: 'Cantón Manta (Red Completa)',
     description: 'Visualización integral de ambas sedes interconectadas en el cantón Manta',
-    center: [-0.9575, -80.7280],
+    center: [-0.9754, -80.7235],
     zoom: 13,
     bounds: [
-      [-0.9680, -80.7580],
-      [-0.9470, -80.7000]
+      [-1.0060, -80.7580],
+      [-0.9450, -80.6900]
     ]
   },
   {
@@ -125,21 +125,9 @@ export const CANTON_ZONES: CantonZone[] = [
     id: 'proano',
     name: 'Sector Barrio La Proaño',
     description: 'Mega Complejo de 1,200m² con parqueo privado de alta capacidad',
-    center: [-0.961215, -80.708492],
+    center: [-0.996944, -80.699528],
     zoom: 16
   }
-];
-
-// Road coordinates connecting Sede ULEAM and Sede La Proaño across Manta arteries
-const ROAD_ROUTE_COORDINATES: [number, number][] = [
-  [-0.953768, -80.747514], // ULEAM
-  [-0.953100, -80.744500], // Av. Circunvalación
-  [-0.952200, -80.739800], // Redondel Costa Azul / ULEAM Link
-  [-0.951400, -80.734500], // Vía Puerto-Aeropuerto / Interbarrial
-  [-0.950800, -80.728200], // Enlace Tarqui / Manta Centro
-  [-0.952500, -80.721500], // Av. 4 de Noviembre
-  [-0.955500, -80.715200], // Acceso La Proaño
-  [-0.961215, -80.708492]  // Sede La Proaño
 ];
 
 export default function InteractiveMap({
@@ -156,8 +144,6 @@ export default function InteractiveMap({
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersRef = useRef<{ [key: string]: L.Marker }>({});
-  const polylineRef = useRef<L.Polyline | null>(null);
-  const glowPolylineRef = useRef<L.Polyline | null>(null);
 
   const [activeView, setActiveView] = useState<'all' | 'uleam' | 'proano'>(
     initialLocationId === 'all' ? 'all' : initialLocationId
@@ -169,7 +155,6 @@ export default function InteractiveMap({
       ? GYM_LOCATIONS.proano
       : null
   );
-  const [routeInfoVisible, setRouteInfoVisible] = useState<boolean>(true);
   const [isCopied, setIsCopied] = useState<string | null>(null);
 
   // Helper to create custom cyber HTML pin marker
@@ -291,7 +276,7 @@ export default function InteractiveMap({
     if (mapInstanceRef.current) return; // Prevent double initialization
 
     // Initial center & zoom
-    let initialCenter: [number, number] = [-0.9575, -80.7280];
+    let initialCenter: [number, number] = [-0.9754, -80.7235];
     let initialZoom = 13;
 
     if (mode === 'single' && initialLocationId !== 'all') {
@@ -329,37 +314,6 @@ export default function InteractiveMap({
     });
 
     osmTileLayer.addTo(map);
-
-    // If mode is 'full' or 'all', add animated connecting road polyline between ULEAM & La Proaño
-    if (mode === 'full') {
-      // Background glow line (Neon Pink)
-      const glowLine = L.polyline(ROAD_ROUTE_COORDINATES, {
-        color: '#FF007F',
-        weight: 8,
-        opacity: 0.4,
-        lineCap: 'round',
-        lineJoin: 'round',
-        className: 'cyber-route-glow'
-      }).addTo(map);
-      glowPolylineRef.current = glowLine;
-
-      // Foreground dashed animated line (Cyber Yellow)
-      const routeLine = L.polyline(ROAD_ROUTE_COORDINATES, {
-        color: '#FFEA00',
-        weight: 3.5,
-        opacity: 0.95,
-        dashArray: '8, 12',
-        lineCap: 'round',
-        lineJoin: 'round',
-        className: 'cyber-route-line animated-dash'
-      }).addTo(map);
-      polylineRef.current = routeLine;
-
-      routeLine.bindTooltip(
-        '<div class="route-tooltip"><strong>Corredor Inter-Sedes Manta</strong><br/><span>4.8 km • ~8-10 min</span></div>',
-        { sticky: true, className: 'cyber-tooltip' }
-      );
-    }
 
     // Add Markers for both sedes or single sede
     const locationsToAdd = mode === 'single' && initialLocationId !== 'all'
@@ -509,33 +463,9 @@ export default function InteractiveMap({
             <span>SYS: OSM_LEAFLET_v1.9.4</span>
           </div>
           <div className="hud-corner bottom-left font-mono">
-            <span>LAT: -0.9575° | LNG: -80.7280°</span>
+            <span>LAT: -0.9754° | LNG: -80.7235°</span>
           </div>
         </div>
-
-        {/* Route Info Badge Overlay (Full Mode) */}
-        {mode === 'full' && routeInfoVisible && (
-          <div className="route-live-badge">
-            <div className="route-badge-icon">
-              <span className="route-pulse"></span>
-              <span className="font-mono text-neon" style={{ fontSize: '11px', fontWeight: 'bold' }}>AUTO</span>
-            </div>
-            <div className="route-badge-text">
-              <div className="route-badge-title font-display">Conexión Directa Av. Circunvalación</div>
-              <div className="route-badge-metrics font-mono">
-                <span className="text-neon">4.8 km</span> entre Sedes • <span className="text-white">~8 min</span>
-              </div>
-            </div>
-            <button
-              type="button"
-              className="route-badge-close"
-              onClick={() => setRouteInfoVisible(false)}
-              aria-label="Cerrar indicador de ruta"
-            >
-              &times;
-            </button>
-          </div>
-        )}
       </div>
 
       {/* Location Details Footer Card (Full mode when a location is active or selected) */}

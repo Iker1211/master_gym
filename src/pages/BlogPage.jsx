@@ -32,18 +32,18 @@ export default function BlogPage({ onOpenPassModal }) {
             <span className="blog-back-arrow">←</span> Volver a Inicio
           </Link>
           <span className="blog-breadcrumb-sep">/</span>
-          <span className="text-neon" style={{ fontWeight: 600, fontSize: '0.85rem' }}>Blog & Artículos</span>
+          <span style={{ color: 'var(--primary)', fontWeight: 600, fontSize: '0.85rem' }}>Blog & Artículos</span>
         </div>
 
         {/* Blog Header Hero */}
         <header className="blog-header-hero">
-          <div className="live-badge" style={{ marginBottom: '1rem' }}>
+          <div className="live-badge" style={{ marginBottom: '1rem', width: 'fit-content' }}>
             <span className="live-dot"></span>
             <span>BITÁCORA TÉCNICA & COMUNIDAD</span>
           </div>
 
           <h1 className="blog-title font-display">
-            MASTER GYM <span className="text-neon">BLOG</span>
+            MASTER GYM <span className="text-gradient">BLOG</span>
           </h1>
           <p className="blog-subtitle">
             Ciencia del entrenamiento, biomecánica aplicada, nutrición realista y consejos prácticos para optimizar tus sesiones en Manta.
@@ -75,7 +75,7 @@ export default function BlogPage({ onOpenPassModal }) {
         {/* Stack of Post Cards */}
         <section className="blog-posts-stack" aria-label="Lista de artículos del blog">
           {filteredPosts.map((post, idx) => (
-            <article key={post.id} className="blog-card glass-card">
+            <article key={post.id} className="blog-card">
               {/* Card visual index number */}
               <div className="blog-card-index font-mono">
                 #{String(idx + 1).padStart(2, '0')}
@@ -149,9 +149,9 @@ export default function BlogPage({ onOpenPassModal }) {
         </section>
 
         {/* CTA Box at Bottom */}
-        <div className="blog-cta-banner glass-card stripes-pattern">
+        <div className="blog-cta-banner">
           <div className="blog-cta-content">
-            <span className="font-mono text-neon" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 'bold' }}>
+            <span className="font-mono" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 'bold', color: 'var(--primary)' }}>
               ¿LISTO PARA ENTRENAR EN SERIO?
             </span>
             <h3 className="font-display text-white" style={{ fontSize: '2.2rem', marginTop: '0.5rem', lineHeight: '1.1' }}>
@@ -162,10 +162,10 @@ export default function BlogPage({ onOpenPassModal }) {
             </p>
           </div>
           <div className="blog-cta-actions">
-            <button onClick={onOpenPassModal} className="btn-neon neon-glow" type="button">
+            <button onClick={onOpenPassModal} className="btn btn-primary" type="button">
               Obtener Pase Gratis 1 Día →
             </button>
-            <Link to="/" className="btn-outline" style={{ fontSize: '1rem', padding: '0.65rem 1.25rem' }}>
+            <Link to="/" className="btn btn-secondary">
               Ver Instalaciones
             </Link>
           </div>

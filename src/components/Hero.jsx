@@ -1,28 +1,49 @@
 import React, { useRef, useEffect } from 'react';
+import { ArrowRight, MapPin } from 'lucide-react';
 
 export default function Hero({ onOpenPassModal }) {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          const retry = () => {
-            if (videoRef.current) videoRef.current.play();
-            window.removeEventListener('touchstart', retry);
-            window.removeEventListener('click', retry);
-          };
-          window.addEventListener('touchstart', retry, { passive: true });
-          window.addEventListener('click', retry, { passive: true });
-        });
-      }
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.volume = 0.15;
+    video.muted = true;
+    const playPromise = video.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Fallback for strict browser autoplay policies
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          videoRef.current.play().catch(() => {});
+        }
+      });
     }
+
+    const enableAudioOnInteraction = () => {
+      if (videoRef.current) {
+        videoRef.current.muted = false;
+        videoRef.current.volume = 0.15;
+        videoRef.current.play().catch(() => {});
+      }
+    };
+
+    window.addEventListener('click', enableAudioOnInteraction, { once: true });
+    window.addEventListener('touchstart', enableAudioOnInteraction, { once: true, passive: true });
+    window.addEventListener('keydown', enableAudioOnInteraction, { once: true });
+
+    return () => {
+      window.removeEventListener('click', enableAudioOnInteraction);
+      window.removeEventListener('touchstart', enableAudioOnInteraction);
+      window.removeEventListener('keydown', enableAudioOnInteraction);
+    };
   }, []);
 
   return (
     <section className="hero-section" id="hero">
-      {/* Background Organic Video & Staged Lighting */}
+      {/* Cinematic Full-Bleed Atmospheric Video Background */}
       <div className="hero-video-wrap">
         <video
           ref={videoRef}
@@ -32,131 +53,74 @@ export default function Hero({ onOpenPassModal }) {
           loop
           playsInline
           poster="/assets/fondo_preview.jpg"
-          preload="metadata"
+          preload="auto"
         >
           <source src="/assets/fondo.mp4" type="video/mp4" />
         </video>
-        {/* Dynamic bilateral & depth gradient overlay */}
-        <div className="hero-gradient-overlay"></div>
-        {/* Floor stage spotlight anchoring the centered mascot */}
-        <div className="hero-stage-lighting" aria-hidden="true"></div>
+        <div className="hero-gradient-overlay" aria-hidden="true"></div>
       </div>
 
       <div className="container hero-container">
-        <div className="hero-cockpit-grid">
+        <div className="hero-content">
           
-          {/* LEFT WING: Brand Manifesto, Value & Primary Conversion */}
-          <div className="hero-brand-wing">
-            
-            {/* Live Status Badge */}
-            <div className="live-badge">
-              <span className="live-dot"></span>
-              <span className="text-white">Manta, Ecuador</span>
-              <span className="badge-divider">//</span>
-              <span className="text-yellow font-mono">Alto Rendimiento</span>
-            </div>
-
-            {/* Display Title - Framed within the left flank */}
-            <h1 className="hero-title">
-              ENTRENA <br />
-              <span className="highlight">SIN LÍMITES</span> <br />
-              EN MANTA.
-            </h1>
-
-            {/* Subtitle */}
-            <p className="hero-subtitle">
-              Equipamiento biomecánico de élite, amplia zona de peso libre y espacios diseñados para resultados reales.
-              <strong className="hero-subtitle-strong">
-                Sin contratos forzosos. Sin matrículas sorpresa.
-              </strong>
-            </p>
-
-            {/* CTAs */}
-            <div className="hero-ctas">
-              <button 
-                onClick={onOpenPassModal} 
-                className="btn-neon hero-cta-primary"
-                type="button"
-              >
-                <span>Obtener Pase Gratis</span>
-                <span className="cta-arrow-icon" aria-hidden="true">→</span>
-              </button>
-
-              <a href="#planes" className="btn-outline hero-cta-secondary">
-                Ver Tarifas y Planes
-              </a>
-            </div>
-
-            {/* Trust Proof Bar */}
-            <div className="hero-trust-bar">
-              <span className="trust-indicator font-mono text-yellow">2 SEDES ACTIVAS</span>
-              <span className="trust-dot-sep">•</span>
-              <span className="trust-text">ULEAM & Barrio La Proaño</span>
-            </div>
-
+          {/* Pill Badge */}
+          <div className="hero-badge">
+            <span className="pulse-dot"></span>
+            <span>MANTA, ECUADOR • 2 SEDES ACTIVAS</span>
           </div>
 
-          {/* CENTER ARENA: Reserved exclusively for the Rhino mascot */}
-          <div className="hero-center-arena" aria-hidden="true">
-            {/* Visual floor marker anchoring the mascot */}
-            <div className="arena-pedestal-marker"></div>
+          {/* Impactful Display Headline */}
+          <h1 className="hero-title">
+            ENTRENA <br />
+            <span className="text-gradient">SIN LÍMITES</span> <br />
+            EN MANTA
+          </h1>
+
+          {/* Refined Subtitle */}
+          <p className="hero-subtitle">
+            Equipamiento biomecánico de élite, amplia zona de peso libre y espacios diseñados para resultados reales. Libertad total con <strong>cero contratos forzosos ni matrículas sorpresa.</strong>
+          </p>
+
+          {/* Rounded Pill CTA Action Group */}
+          <div className="hero-cta-group">
+            <button
+              onClick={onOpenPassModal}
+              className="btn btn-primary btn-large"
+              type="button"
+            >
+              <span>Obtener Pase Gratis 1 Día</span>
+              <ArrowRight size={18} />
+            </button>
+            <a href="#sedes" className="btn btn-outline btn-large">
+              <MapPin size={18} />
+              <span>Conocer Sedes</span>
+            </a>
+            <a href="#planes" className="btn btn-outline btn-large">
+              <span>Ver Tarifas</span>
+            </a>
           </div>
 
-          {/* RIGHT WING: Telemetry / Features / Specifications HUD */}
-          <div className="hero-hud-wing">
-            
-            <div className="hud-panel-header">
-              <div className="hud-title-wrap">
-                <span className="live-dot live-dot-yellow"></span>
-                <span className="hud-header-title font-mono">SISTEMA // ESPECIFICACIONES</span>
-              </div>
-              <span className="hud-status-badge font-mono">EN VIVO</span>
+          {/* Floating Glassmorphic Stats Deck */}
+          <div className="hero-stats glass-panel">
+            <div className="stat-card">
+              <span className="stat-number">2</span>
+              <span className="stat-desc">Sedes en Manta</span>
             </div>
-
-            <div className="hero-hud-cards">
-              
-              <div className="hero-hud-card">
-                <span className="hud-card-num font-mono text-yellow">01 //</span>
-                <div className="hud-card-body">
-                  <strong className="hud-card-title">Cero Contratos</strong>
-                  <span className="hud-card-desc">Libertad total: paga mes a mes o por día sin cláusulas de permanencia.</span>
-                </div>
-              </div>
-
-              <div className="hero-hud-card">
-                <span className="hud-card-num font-mono text-pink">02 //</span>
-                <div className="hud-card-body">
-                  <strong className="hud-card-title">Tarifas Claras</strong>
-                  <span className="hud-card-desc">Pase Diario $1.50 • Mes $20. Sin matrículas sorpresa ni costos ocultos.</span>
-                </div>
-              </div>
-
-              <div className="hero-hud-card">
-                <span className="hud-card-num font-mono text-yellow">03 //</span>
-                <div className="hud-card-body">
-                  <strong className="hud-card-title">Horario Continuo</strong>
-                  <span className="hud-card-desc">05:30 a 22:30 Lun-Vie • Sábados de 07:00 a 16:00 sin interrupciones.</span>
-                </div>
-              </div>
-
-              <div className="hero-hud-card">
-                <span className="hud-card-num font-mono text-pink">04 //</span>
-                <div className="hud-card-body">
-                  <strong className="hud-card-title">Biomecánica Pro</strong>
-                  <span className="hud-card-desc">Líneas Leverage, Zona Olímpica completa, lockers y duchas 100% funcionales.</span>
-                </div>
-              </div>
-
+            <div className="stat-divider"></div>
+            <div className="stat-card">
+              <span className="stat-number">1,200m²</span>
+              <span className="stat-desc">Espacio Total</span>
             </div>
-
-            {/* Quick Action Footer in HUD */}
-            <div className="hud-panel-footer">
-              <a href="#sedes" className="hud-footer-action font-mono">
-                <span>CONOCE NUESTRAS 2 SEDES</span>
-                <span className="hud-footer-arrow">↓</span>
-              </a>
+            <div className="stat-divider"></div>
+            <div className="stat-card">
+              <span className="stat-number">$1.50</span>
+              <span className="stat-desc">Pase Diario</span>
             </div>
-
+            <div className="stat-divider"></div>
+            <div className="stat-card">
+              <span className="stat-number">0</span>
+              <span className="stat-desc">Contratos</span>
+            </div>
           </div>
 
         </div>

@@ -8,10 +8,10 @@ export default function Instalaciones() {
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '3rem' }}>
           <div>
             <div className="section-tag">
-              <span>// 02 — Infraestructura de Élite</span>
+              <span>Equipamiento & Zonas • Alto Rendimiento</span>
             </div>
             <h2 className="section-title">
-              EQUIPAMIENTO <span className="text-neon">SIN EXCUSAS.</span>
+              EQUIPAMIENTO <span className="text-gradient">SIN EXCUSAS.</span>
             </h2>
           </div>
           <p className="section-desc" style={{ maxWidth: '460px' }}>
@@ -28,13 +28,13 @@ export default function Instalaciones() {
             <div className="bento-overlay"></div>
             
             <div className="bento-content">
-              <div className="live-badge" style={{ marginBottom: '0.75rem', background: 'rgba(255,0,127,0.15)', borderColor: 'rgba(255,0,127,0.4)', color: 'var(--color-neon-pink)' }}>
+              <div className="live-badge" style={{ marginBottom: '0.85rem', background: 'rgba(255, 0, 127, 0.15)', borderColor: 'rgba(255, 0, 127, 0.4)', color: 'var(--primary)', borderRadius: '9999px', width: 'fit-content' }}>
                 Fuerza & Hipertrofia
               </div>
               <h3 className="font-display text-white" style={{ fontSize: '2.25rem', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 Área de Peso Libre & Racks
               </h3>
-              <p style={{ fontSize: '13px', color: 'rgba(244, 244, 246, 0.8)', maxWidth: '520px', lineHeight: '1.6', marginBottom: '0.75rem' }}>
+              <p style={{ fontSize: '13px', color: 'rgba(244, 244, 246, 0.8)', maxWidth: '520px', lineHeight: '1.6', marginBottom: '0.85rem' }}>
                 Mancuernas de uretano calibradas hasta 60 kg, plataformas olímpicas de levantamiento, jaulas de potencia y discos Eleiko para máxima seguridad y rendimiento.
               </p>
               <div className="tags-list">
@@ -51,13 +51,13 @@ export default function Instalaciones() {
             <div className="bento-overlay"></div>
             
             <div className="bento-content">
-              <div className="live-badge" style={{ marginBottom: '0.75rem', background: 'rgba(255,234,0,0.15)', borderColor: 'rgba(255,234,0,0.4)', color: 'var(--color-cyber-yellow)' }}>
+              <div className="live-badge" style={{ marginBottom: '0.85rem', background: 'rgba(255, 234, 0, 0.15)', borderColor: 'rgba(255, 234, 0, 0.4)', color: 'var(--accent)', borderRadius: '9999px', width: 'fit-content' }}>
                 Biomecánica & Carga
               </div>
               <h3 className="font-display text-white" style={{ fontSize: '2.25rem', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 Línea Leverage & Empuje
               </h3>
-              <p style={{ fontSize: '13px', color: 'rgba(244, 244, 246, 0.8)', lineHeight: '1.6', marginBottom: '0.75rem' }}>
+              <p style={{ fontSize: '13px', color: 'rgba(244, 244, 246, 0.8)', lineHeight: '1.6', marginBottom: '0.85rem' }}>
                 Maquinaria de palanca Iso-Lateral y estaciones de empuje convergente para máxima tensión muscular con seguridad articular.
               </p>
               <div className="tags-list">
@@ -73,7 +73,7 @@ export default function Instalaciones() {
             <div className="bento-overlay"></div>
             
             <div className="bento-content">
-              <div className="live-badge" style={{ marginBottom: '0.75rem', background: 'rgba(255,0,127,0.15)', borderColor: 'rgba(255,0,127,0.4)', color: 'var(--color-neon-pink)' }}>
+              <div className="live-badge" style={{ marginBottom: '0.85rem', background: 'rgba(255, 0, 127, 0.15)', borderColor: 'rgba(255, 0, 127, 0.4)', color: 'var(--primary)', borderRadius: '9999px', width: 'fit-content' }}>
                 Levantamiento Olímpico
               </div>
               <h3 className="font-display text-white" style={{ fontSize: '1.75rem', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
@@ -91,7 +91,7 @@ export default function Instalaciones() {
             <div className="bento-overlay"></div>
             
             <div className="bento-content">
-              <div className="live-badge" style={{ marginBottom: '0.75rem', background: 'rgba(255,234,0,0.15)', borderColor: 'rgba(255,234,0,0.4)', color: 'var(--color-cyber-yellow)' }}>
+              <div className="live-badge" style={{ marginBottom: '0.85rem', background: 'rgba(255, 234, 0, 0.15)', borderColor: 'rgba(255, 234, 0, 0.4)', color: 'var(--accent)', borderRadius: '9999px', width: 'fit-content' }}>
                 Aislamiento & Poleas
               </div>
               <h3 className="font-display text-white" style={{ fontSize: '1.75rem', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
@@ -109,7 +109,7 @@ export default function Instalaciones() {
             <div className="bento-overlay"></div>
             
             <div className="bento-content">
-              <div className="live-badge" style={{ marginBottom: '0.75rem', background: 'rgba(255,0,127,0.15)', borderColor: 'rgba(255,0,127,0.4)', color: 'var(--color-neon-pink)' }}>
+              <div className="live-badge" style={{ marginBottom: '0.85rem', background: 'rgba(255, 0, 127, 0.15)', borderColor: 'rgba(255, 0, 127, 0.4)', color: 'var(--primary)', borderRadius: '9999px', width: 'fit-content' }}>
                 Resultados Guiados
               </div>
               <h3 className="font-display text-white" style={{ fontSize: '1.75rem', textTransform: 'uppercase', marginBottom: '0.5rem' }}>

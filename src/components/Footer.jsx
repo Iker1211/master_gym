@@ -25,7 +25,7 @@ export default function Footer() {
             <Link to="/" className="text-white" style={{ fontSize: '12px', textDecoration: 'underline' }}>
               Inicio
             </Link>
-            <Link to="/blog" className="text-neon" style={{ fontSize: '12px', textDecoration: 'underline', fontWeight: 'bold' }}>
+            <Link to="/blog" style={{ color: 'var(--primary)', fontSize: '12px', textDecoration: 'underline', fontWeight: 'bold' }}>
               Blog & Artículos
             </Link>
           </div>
@@ -42,7 +42,7 @@ export default function Footer() {
           <p className="text-muted" style={{ fontSize: '12px', marginBottom: '0.35rem' }}>
             Av. Circunvalación frente a la ULEAM, Manta, Ecuador.
           </p>
-          <p className="font-mono text-neon" style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '0.75rem' }}>
+          <p className="font-mono" style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '0.75rem', color: 'var(--accent)' }}>
             Lun-Vie: 05:30 — 22:30
           </p>
           <a 
@@ -64,7 +64,7 @@ export default function Footer() {
           <p className="text-muted" style={{ fontSize: '12px', marginBottom: '0.35rem' }}>
             Barrio La Proaño, Manta, Ecuador.
           </p>
-          <p className="font-mono text-neon" style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '0.75rem' }}>
+          <p className="font-mono" style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '0.75rem', color: 'var(--primary)' }}>
             Lun-Vie: 05:30 — 22:30
           </p>
           <a 
