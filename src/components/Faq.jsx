@@ -8,8 +8,8 @@ const FAQ_ITEMS = [
   },
   {
     id: 2,
-    question: '¿Cuentan con parqueadero privado y seguro en ambas sedes?',
-    answer: 'Sí. La Sede La Proaño cuenta con un parqueadero cerrado con capacidad para más de 40 vehículos con guardia de seguridad permanente. La Sede ULEAM dispone de bahía de estacionamiento frontal y convenios en zonas contiguas señalizadas.'
+    question: '¿Cómo es el acceso y la ubicación de ambas sedes?',
+    answer: 'Ambas sedes están ubicadas sobre vías principales de Manta de muy fácil acceso. La Sede ULEAM está en plena Av. Circunvalación justo frente a la segunda entrada de la universidad (ideal para llegar a pie, en bus o taxi). La Sede La Proaño se ubica en el sector La Pradera con amplias calles para estacionar en los alrededores y rápida conexión vehicular.'
   },
   {
     id: 3,
@@ -66,7 +66,7 @@ export default function Faq() {
 
               <div style={{ background: 'var(--bg-glass-card)', backdropFilter: 'blur(14px)', padding: '1.4rem', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-card)' }}>
                 <p style={{ fontSize: '13px', fontStyle: 'italic', color: 'rgba(244, 244, 246, 0.85)', lineHeight: '1.6' }}>
-                  "El parqueo privado en la sede de La Proaño da una tranquilidad total. No hay aglomeraciones para usar las máquinas y el aire acondicionado siempre está al 100%."
+                  "El espacio en la sede de La Proaño es enorme y súper ventilado. No hay que esperar turnos para usar las máquinas ni las jaulas, y en la ULEAM las duchas y casilleros salvan el día después de clases."
                 </p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.85rem', fontSize: '11px' }}>
                   <strong style={{ color: '#FFF' }}>Dra. Gabriela Delgado</strong>

@@ -57,19 +57,19 @@ export const GYM_LOCATIONS: Record<'uleam' | 'proano', GymLocation> = {
     shortName: 'Sede ULEAM',
     canton: 'Cantón Manta',
     sector: 'Zona Universitaria / Av. Circunvalación',
-    address: 'Av. Circunvalación frente a Puerta 1 ULEAM, Manta',
+    address: 'Av. Circunvalación frente a la 2da Entrada ULEAM, Manta',
     lat: -0.953768,
     lng: -80.747514,
     zoom: 16,
     tag: 'Zona Universitaria',
-    badge: 'Frente a ULEAM',
+    badge: 'Frente a 2da Entrada ULEAM',
     area: '450 m²',
     hours: {
       weekdays: '05:30 — 22:30',
       saturday: '07:00 — 19:00',
       sunday: '08:00 — 14:00'
     },
-    highlights: ['Lockers Digitales', 'Duchas Agua Caliente', 'Climatizado 100%', 'Pase Diario $1.50'],
+    highlights: ['Casilleros Seguros', 'Duchas & Vestidores', 'Espacio Ventilado', 'Pase Diario $1.50'],
     googleMapsUrl: 'https://maps.google.com/?q=-0.953768,-80.747514',
     whatsappUrl: 'https://wa.me/593987654321?text=Hola%20Master%20Gym%20Manta!%20Quiero%20visitar%20la%20Sede%20ULEAM',
     phone: '+593 98 765 4321',
@@ -86,14 +86,14 @@ export const GYM_LOCATIONS: Record<'uleam' | 'proano', GymLocation> = {
     lng: -80.699528,
     zoom: 16,
     tag: 'Mega Complejo',
-    badge: '1,200 m² + Parqueo',
+    badge: 'Mega Complejo 1,200 m²',
     area: '1,200 m²',
     hours: {
       weekdays: '05:30 — 22:30',
       saturday: '06:30 — 19:00',
       sunday: '08:00 — 14:00'
     },
-    highlights: ['Parqueo Privado 40+ Autos', 'Turf Funcional 30m', 'Fit Bar & Shakes', 'Cross Training'],
+    highlights: ['Zona Funcional', 'Espacio Ventilado', 'Fit Bar & Batidos', 'Cross Training'],
     googleMapsUrl: 'https://maps.google.com/?q=-0.996944,-80.699528',
     whatsappUrl: 'https://wa.me/593987654322?text=Hola%20Master%20Gym%20Manta!%20Quiero%20visitar%20la%20Sede%20La%20Proa%C3%B1o',
     phone: '+593 98 765 4322',
@@ -117,14 +117,14 @@ export const CANTON_ZONES: CantonZone[] = [
   {
     id: 'uleam',
     name: 'Sector ULEAM / Universidad',
-    description: 'Av. Circunvalación, frente a la Puerta 1 de la ULEAM',
+    description: 'Av. Circunvalación, frente a la 2da Entrada de la ULEAM',
     center: [-0.953768, -80.747514],
     zoom: 16
   },
   {
     id: 'proano',
     name: 'Sector Barrio La Proaño',
-    description: 'Mega Complejo de 1,200m² con parqueo privado de alta capacidad',
+    description: 'Mega Complejo de 1,200m² con área de entrenamiento funcional y peso libre',
     center: [-0.996944, -80.699528],
     zoom: 16
   }
@@ -450,11 +450,12 @@ export default function InteractiveMap({
       )}
 
       {/* Main Map Container Canvas */}
-      <div className="map-viewport-container" style={{ height }}>
+      <div className="map-viewport-container" style={{ height }} data-lenis-prevent>
         <div
           ref={mapContainerRef}
           className="leaflet-map-canvas"
           style={{ width: '100%', height: '100%' }}
+          data-lenis-prevent
         />
 
         {/* Cyber Map Compass / Grid Overlay */}
@@ -547,7 +548,7 @@ export default function InteractiveMap({
                     <span className="box-icon font-mono text-yellow" style={{ fontSize: '13px', fontWeight: 'bold' }}>01</span>
                     <strong className="box-title font-display">1. Sede ULEAM</strong>
                   </div>
-                  <p className="box-desc">Av. Circunvalación frente a Puerta 1 • Zona Universitaria</p>
+                  <p className="box-desc">Av. Circunvalación frente a la 2da Entrada • Zona Universitaria</p>
                   <div className="box-footer font-mono">
                     <span className="text-yellow">Lun–Vie: 05:30 — 22:30</span>
                     <span className="box-arrow">Ver en Mapa →</span>
@@ -564,7 +565,7 @@ export default function InteractiveMap({
                     <span className="box-icon font-mono text-pink" style={{ fontSize: '13px', fontWeight: 'bold' }}>02</span>
                     <strong className="box-title font-display">2. Sede La Proaño</strong>
                   </div>
-                  <p className="box-desc">Barrio La Proaño • Mega Complejo 1,200m² + Parqueo 40+ autos</p>
+                  <p className="box-desc">Barrio La Proaño • Mega Complejo 1,200m² • Zona Funcional</p>
                   <div className="box-footer font-mono">
                     <span className="text-pink">Lun–Vie: 05:30 — 22:30</span>
                     <span className="box-arrow">Ver en Mapa →</span>

@@ -43,16 +43,9 @@ export default function Navbar({ onOpenPassModal }) {
           <ul className="nav-links">
             <li>
               {isHomePage ? (
-                <a href="#sedes" className="nav-link" onClick={closeMenu}>Sedes</a>
+                <a href="#sedes" className="nav-link" onClick={closeMenu}>Sedes & Instalaciones</a>
               ) : (
-                <Link to="/#sedes" className="nav-link" onClick={closeMenu}>Sedes</Link>
-              )}
-            </li>
-            <li>
-              {isHomePage ? (
-                <a href="#instalaciones" className="nav-link" onClick={closeMenu}>Instalaciones</a>
-              ) : (
-                <Link to="/#instalaciones" className="nav-link" onClick={closeMenu}>Instalaciones</Link>
+                <Link to="/#sedes" className="nav-link" onClick={closeMenu}>Sedes & Instalaciones</Link>
               )}
             </li>
             <li>
