@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Check, Sparkles, Users, User, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import RhinoWatermark from './RhinoWatermark';
 
 export default function Tarifas({ onOpenPassModal }) {
   const [isDuo, setIsDuo] = useState(false);
@@ -9,6 +10,7 @@ export default function Tarifas({ onOpenPassModal }) {
 
   return (
     <section id="planes" className="section">
+      <RhinoWatermark variant="stoic" position="center" opacity={0.20} />
       <div className="container">
         
         <div className="section-header text-center">
@@ -323,7 +325,7 @@ export default function Tarifas({ onOpenPassModal }) {
             style={{ fontSize: '12px', padding: '0.55rem 1.15rem' }}
             type="button"
           >
-            Probar 1 Día Gratis Primero →
+            Probar 1 Semana Gratis Primero →
           </button>
         </div>
 
@@ -335,7 +337,7 @@ export default function Tarifas({ onOpenPassModal }) {
             <span className="text-muted">Transferencia Bancaria (Pichincha, Guayaquil), Deuna, Tarjetas de Débito/Crédito y Efectivo en caja.</span>
           </div>
           <button onClick={onOpenPassModal} style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontWeight: 'bold', textTransform: 'uppercase', textDecoration: 'underline', font: 'inherit', whiteSpace: 'nowrap' }}>
-            ¿Aún indeciso? Reclama tu pase de prueba →
+            ¿Aún indeciso? Reclama tu pase gratis de 1 semana →
           </button>
         </div>
 

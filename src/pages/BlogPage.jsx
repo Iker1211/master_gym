@@ -158,12 +158,12 @@ export default function BlogPage({ onOpenPassModal }) {
               VEN A CONOCER NUESTRAS SEDES EN MANTA
             </h3>
             <p className="text-muted" style={{ fontSize: '13px', marginTop: '0.5rem', maxWidth: '540px' }}>
-              Equipamiento biomecánico, zona de peso libre completa y ambiente enfocado en resultados. Pide tu pase gratis de 1 día hoy mismo.
+              Equipamiento biomecánico, zona de peso libre completa y ambiente enfocado en resultados. Pide tu pase gratis de 1 semana hoy mismo.
             </p>
           </div>
           <div className="blog-cta-actions">
             <button onClick={onOpenPassModal} className="btn btn-primary" type="button">
-              Obtener Pase Gratis 1 Día →
+              Obtener Pase Gratis 1 Semana →
             </button>
             <Link to="/" className="btn btn-secondary">
               Ver Instalaciones

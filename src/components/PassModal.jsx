@@ -1,5 +1,19 @@
-import React, { useState } from 'react';
-import { ShieldCheck, CheckCircle2, QrCode, Sparkles, Send, X, Dumbbell, MapPin } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { 
+  Sparkles, 
+  Send, 
+  Download, 
+  Copy, 
+  Check, 
+  CheckCircle2 
+} from 'lucide-react';
+import Modal from './ui/Modal';
+import Button from './ui/Button';
+import PassForm from './pass/PassForm';
+import VipTicketCard from './pass/VipTicketCard';
+import { createTicketRecord, generateTicketCanvas } from '../utils/ticketGenerator';
+
+const STORAGE_KEY = 'mastergym_vip_pass';
 
 export default function PassModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -7,243 +21,297 @@ export default function PassModal({ isOpen, onClose }) {
     phone: '',
     location: 'ULEAM'
   });
-  const [ticket, setTicket] = useState(null);
+  const [ticket, setTicket] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const [notice, setNotice] = useState(null);
 
-  if (!isOpen) return null;
+  const ticketRef = useRef(null);
+
+  // Sync ticket to localStorage for user convenience
+  useEffect(() => {
+    if (ticket) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(ticket));
+      } catch {}
+    }
+  }, [ticket]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const randomCode = 'MG-' + Math.floor(1000 + Math.random() * 9000) + '-MTA';
-    const targetPhone = formData.location === 'ULEAM' ? '593987654321' : '593987654322';
-    const locationName = formData.location === 'ULEAM' ? 'Sede ULEAM (2da Entrada)' : 'Sede La Proaño (Mega Complejo)';
-    const msg = `¡Hola Master Gym Manta! Mi nombre es ${formData.name}. Acabo de generar mi Pase VIP de Prueba Gratuita (Ticket: ${randomCode}) para la ${locationName}. Deseo pasar a entrenar hoy, ¿a qué hora puedo acercarme a recepción?`;
-    
-    setTicket({
-      id: randomCode,
-      name: formData.name,
-      phone: formData.phone,
-      location: locationName,
-      locationRaw: formData.location,
-      issuedAt: new Date().toLocaleTimeString('es-EC', { hour: '2-digit', minute: '2-digit' }),
-      whatsappUrl: `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`
-    });
+    const newTicket = createTicketRecord(formData);
+    setTicket(newTicket);
+    setNotice(null);
+    setDownloadSuccess(false);
+    setCopySuccess(false);
   };
 
-  const handleClose = () => {
+  const handleClearTicket = () => {
     setTicket(null);
-    setFormData({ name: '', phone: '', location: 'ULEAM' });
-    onClose();
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {}
+    setNotice(null);
+  };
+
+  const handleDownloadImage = async () => {
+    if (!ticket) return;
+    setIsGeneratingImage(true);
+
+    try {
+      const canvas = await generateTicketCanvas(ticketRef, ticket);
+      if (!canvas) throw new Error('Could not generate canvas');
+
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `Pase-VIP-MasterGym-1Semana-${ticket.id}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setDownloadSuccess(true);
+      setTimeout(() => setDownloadSuccess(false), 3500);
+    } catch (err) {
+      console.error('Error downloading ticket image:', err);
+      alert('Hubo un inconveniente al generar la imagen. Por favor intenta nuevamente.');
+    } finally {
+      setIsGeneratingImage(false);
+    }
+  };
+
+  const handleCopyImage = async () => {
+    if (!ticket) return;
+    setIsGeneratingImage(true);
+
+    try {
+      const canvas = await generateTicketCanvas(ticketRef, ticket);
+      if (!canvas) throw new Error('Could not render canvas');
+
+      const blob = await new Promise((res) => canvas.toBlob(res, 'image/png'));
+      if (blob && navigator.clipboard && window.ClipboardItem) {
+        await navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]);
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 3000);
+      } else {
+        handleDownloadImage();
+      }
+    } catch (err) {
+      console.warn('Clipboard write failed:', err);
+      handleDownloadImage();
+    } finally {
+      setIsGeneratingImage(false);
+    }
+  };
+
+  const handleShareWhatsApp = async () => {
+    if (!ticket) return;
+    setIsGeneratingImage(true);
+
+    try {
+      const canvas = await generateTicketCanvas(ticketRef, ticket);
+      if (!canvas) {
+        window.open(ticket.whatsappUrl, '_blank');
+        return;
+      }
+
+      const blob = await new Promise((res) => canvas.toBlob(res, 'image/png'));
+      const filename = `Pase-VIP-MasterGym-${ticket.id}.png`;
+      const file = new File([blob], filename, { type: 'image/png' });
+
+      // Native mobile Web Share
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'Mi Pase VIP Master Gym Manta (1 Semana)',
+            text: ticket.rawMsg
+          });
+          setIsGeneratingImage(false);
+          return;
+        } catch (shareErr) {
+          if (shareErr.name === 'AbortError') {
+            setIsGeneratingImage(false);
+            return;
+          }
+        }
+      }
+
+      // Desktop / Web WhatsApp flow:
+      let copied = false;
+      if (navigator.clipboard && window.ClipboardItem) {
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          copied = true;
+        } catch {}
+      }
+
+      // Trigger automatic image download
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setNotice({
+        title: '¡Ticket preparado y WhatsApp abierto!',
+        message: copied
+          ? 'Copiamos tu ticket al portapapeles y lo descargamos. En WhatsApp presiona Pegar (Ctrl+V) en el chat para enviar la imagen junto con el mensaje.'
+          : 'Descargamos tu ticket como imagen. En WhatsApp adjúntalo al chat junto con tu mensaje.'
+      });
+
+      window.open(ticket.whatsappUrl, '_blank');
+    } catch (err) {
+      console.error('Error in WhatsApp share:', err);
+      window.open(ticket.whatsappUrl, '_blank');
+    } finally {
+      setIsGeneratingImage(false);
+    }
   };
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={handleClose}>
-      <div className="modal-box" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '520px', borderRadius: 'var(--radius-xl)' }}>
-        
-        {/* Close Button */}
-        <button onClick={handleClose} className="modal-close-btn" type="button" aria-label="Cerrar modal">
-          <X size={20} />
-        </button>
-
-        {!ticket ? (
-          <div>
-            {/* Header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1rem' }}>
-              <img
-                src="/assets/logo/logo.png"
-                alt="Master Gym Manta Logo"
-                style={{ width: '46px', height: '46px', objectFit: 'contain', filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.8))' }}
-              />
-              <div>
-                <span className="live-badge" style={{ background: 'rgba(255, 0, 127, 0.15)', borderColor: 'rgba(255, 0, 127, 0.4)', color: 'var(--primary)', marginBottom: '0.2rem', padding: '0.2rem 0.65rem', fontSize: '10px', borderRadius: '9999px' }}>
-                  ★ ACCESO DE CORTESÍA • 1 DÍA COMPLETO
-                </span>
-                <h3 className="font-display text-white" style={{ fontSize: '1.95rem', textTransform: 'uppercase', lineHeight: '1' }}>
-                  RECLAMA TU PASE VIP
-                </h3>
-              </div>
-            </div>
-
-            <p className="text-muted" style={{ fontSize: '13px', marginBottom: '1rem', lineHeight: '1.5' }}>
-              Entrena gratis por 1 día completo en cualquiera de nuestras 2 sedes en Manta. Acceso total a maquinaria clásica multifuncional, peso libre y duchas.
-            </p>
-
-            {/* Quick Guarantees Strip */}
-            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', background: 'rgba(255, 255, 255, 0.03)', padding: '0.65rem 0.85rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', marginBottom: '1.25rem', fontSize: '11px', color: 'var(--text-main)' }}>
-              <span>✓ 100% Gratuito</span>
-              <span>•</span>
-              <span>✓ Cero tarjeta de crédito</span>
-              <span>•</span>
-              <span>✓ Sin contrato</span>
-            </div>
-
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label className="form-label" style={{ fontSize: '12px' }}>Nombre y Apellido</label>
-                <input 
-                  type="text" 
-                  required 
-                  placeholder="Ej. Carlos Mendoza" 
-                  className="form-input"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label" style={{ fontSize: '12px' }}>Número de WhatsApp</label>
-                <input 
-                  type="tel" 
-                  required 
-                  placeholder="Ej. 099 123 4567" 
-                  className="form-input"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label" style={{ fontSize: '12px' }}>Selecciona la Sede que deseas visitar</label>
-                <div className="radio-group" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
-                  <label className="radio-card" style={{ padding: '0.85rem', cursor: 'pointer', border: formData.location === 'ULEAM' ? '1px solid var(--accent)' : '1px solid var(--border-light)', background: formData.location === 'ULEAM' ? 'rgba(255, 234, 0, 0.08)' : 'transparent' }}>
-                    <input 
-                      type="radio" 
-                      name="location" 
-                      value="ULEAM" 
-                      checked={formData.location === 'ULEAM'}
-                      onChange={() => setFormData({ ...formData, location: 'ULEAM' })}
-                      style={{ marginRight: '0.4rem' }}
-                    />
-                    <div>
-                      <span style={{ fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', color: formData.location === 'ULEAM' ? 'var(--accent)' : '#FFF' }}>
-                        Sede ULEAM
-                      </span>
-                      <span style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)' }}>Frente 2da Entrada</span>
-                    </div>
-                  </label>
-
-                  <label className="radio-card" style={{ padding: '0.85rem', cursor: 'pointer', border: formData.location === 'La Proaño' ? '1px solid var(--primary)' : '1px solid var(--border-light)', background: formData.location === 'La Proaño' ? 'rgba(255, 0, 127, 0.08)' : 'transparent' }}>
-                    <input 
-                      type="radio" 
-                      name="location" 
-                      value="La Proaño" 
-                      checked={formData.location === 'La Proaño'}
-                      onChange={() => setFormData({ ...formData, location: 'La Proaño' })}
-                      style={{ marginRight: '0.4rem' }}
-                    />
-                    <div>
-                      <span style={{ fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', color: formData.location === 'La Proaño' ? 'var(--primary)' : '#FFF' }}>
-                        Sede La Proaño
-                      </span>
-                      <span style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)' }}>1,200m² • Zona Funcional</span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              <div style={{ paddingTop: '0.5rem' }}>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.95rem', fontSize: '1rem', fontWeight: 'bold' }}>
-                  Generar Mi Pase Digital VIP →
-                </button>
-              </div>
-            </form>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Pase VIP 1 Semana Gratis"
+      maxWidth="540px"
+    >
+      {!ticket ? (
+        <PassForm
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={handleSubmit}
+        />
+      ) : (
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '0.85rem' }}>
+            <Sparkles size={16} style={{ color: 'var(--accent)' }} />
+            <span className="font-mono text-yellow" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 'bold' }}>
+              PASE VIP 1 SEMANA EMITIDO EXITOSAMENTE
+            </span>
           </div>
-        ) : (
-          /* ================= VIP ATHLETE BOARDING PASS ================= */
-          <div style={{ textAlign: 'center' }}>
-            
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-              <Sparkles size={16} style={{ color: 'var(--accent)' }} />
-              <span className="font-mono text-yellow" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 'bold' }}>
-                PASE DIGITAL EMITIDO EXITOSAMENTE
+
+          <VipTicketCard ticket={ticket} ticketRef={ticketRef} />
+
+          {notice && (
+            <div 
+              style={{ 
+                background: 'rgba(37, 211, 102, 0.12)', 
+                border: '1px solid rgba(37, 211, 102, 0.4)', 
+                borderRadius: '10px', 
+                padding: '0.75rem', 
+                marginBottom: '0.85rem',
+                textAlign: 'left',
+                fontSize: '12px',
+                color: '#FFFFFF'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 'bold', color: '#25D366', marginBottom: '2px' }}>
+                <CheckCircle2 size={15} />
+                <span>{notice.title}</span>
+              </div>
+              <p style={{ margin: 0, fontSize: '11px', color: '#E2E8F0', lineHeight: '1.4' }}>
+                {notice.message}
+              </p>
+            </div>
+          )}
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            <Button
+              onClick={handleShareWhatsApp}
+              disabled={isGeneratingImage}
+              variant="primary"
+              fullWidth
+              size="lg"
+              style={{ minHeight: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+            >
+              <Send size={18} />
+              <span>
+                {isGeneratingImage ? 'Generando Ticket...' : 'Enviar por WhatsApp (Ticket + Mensaje) →'}
               </span>
-            </div>
+            </Button>
 
-            {/* Boarding Pass / Ticket Card */}
-            <div className="vip-pass-card" style={{ background: 'linear-gradient(145deg, #16181E 0%, #101216 100%)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', padding: '1.5rem', textAlign: 'left', position: 'relative', overflow: 'hidden', boxShadow: '0 18px 40px -10px rgba(0,0,0,0.8), 0 0 24px rgba(255, 0, 127, 0.15)', marginBottom: '1.25rem' }}>
-              
-              {/* Neon decorative stripe */}
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: formData.location === 'ULEAM' ? 'var(--accent)' : 'var(--primary)' }}></div>
-
-              {/* Ticket Top Header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px dashed rgba(255,255,255,0.15)', paddingBottom: '0.85rem', marginBottom: '1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                  <img src="/assets/logo/logo.png" alt="Logo" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
-                  <div>
-                    <span className="font-display text-white" style={{ fontSize: '1.2rem', letterSpacing: '0.05em' }}>MASTER GYM</span>
-                    <span className="font-mono" style={{ fontSize: '9px', display: 'block', color: 'var(--text-muted)' }}>MANTA • ECUADOR</span>
-                  </div>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <span className="font-mono" style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'block' }}>FOLIO ID</span>
-                  <span className="font-mono" style={{ fontSize: '13px', fontWeight: 'bold', color: formData.location === 'ULEAM' ? 'var(--accent)' : 'var(--primary)', letterSpacing: '0.05em' }}>
-                    {ticket.id}
-                  </span>
-                </div>
-              </div>
-
-              {/* Pass Details Matrix */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem', marginBottom: '1rem', fontSize: '12px' }}>
-                <div>
-                  <span className="text-muted" style={{ display: 'block', fontSize: '10px', textTransform: 'uppercase' }}>Atleta Invitado:</span>
-                  <strong style={{ color: '#fff', fontSize: '13px' }}>{ticket.name}</strong>
-                </div>
-                <div>
-                  <span className="text-muted" style={{ display: 'block', fontSize: '10px', textTransform: 'uppercase' }}>Hora Emisión:</span>
-                  <span className="font-mono" style={{ color: '#fff' }}>{ticket.issuedAt} (Hoy)</span>
-                </div>
-                <div style={{ gridColumn: 'span 2' }}>
-                  <span className="text-muted" style={{ display: 'block', fontSize: '10px', textTransform: 'uppercase' }}>Sede Asignada:</span>
-                  <strong style={{ color: formData.location === 'ULEAM' ? 'var(--accent)' : 'var(--primary)', fontSize: '13px' }}>
-                    {ticket.location}
-                  </strong>
-                </div>
-                <div style={{ gridColumn: 'span 2', background: 'rgba(255, 255, 255, 0.04)', padding: '0.5rem 0.75rem', borderRadius: 'var(--radius-xs)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <span style={{ fontSize: '11px', color: 'rgba(244, 244, 246, 0.9)' }}>
-                    ✓ Válido por <strong>48 horas</strong> • Presenta este código en recepción con tu cédula.
-                  </span>
-                </div>
-              </div>
-
-              {/* Barcode / Ticket Footer aesthetic */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed rgba(255,255,255,0.12)', paddingTop: '0.75rem' }}>
-                <div style={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
-                  {[12, 24, 18, 28, 14, 26, 16, 22, 10, 28, 20, 14, 24, 18, 12, 26, 20].map((h, i) => (
-                    <div key={i} style={{ width: '2px', height: `${h}px`, background: 'rgba(255,255,255,0.35)', borderRadius: '1px' }}></div>
-                  ))}
-                </div>
-                <span className="font-mono text-muted" style={{ fontSize: '9px', letterSpacing: '0.1em' }}>
-                  AUTHENTICATED ACCESS
-                </span>
-              </div>
-
-            </div>
-
-            {/* Direct 1-Tap WhatsApp Conversion Action */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-              <a 
-                href={ticket.whatsappUrl} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn btn-primary"
-                style={{ width: '100%', padding: '0.95rem', fontSize: '1rem', fontWeight: 'bold' }}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
+              <Button
+                onClick={handleDownloadImage}
+                disabled={isGeneratingImage}
+                variant="outline"
+                size="sm"
+                style={{ minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}
               >
-                <Send size={16} />
-                <span>Confirmar y Notificar por WhatsApp →</span>
-              </a>
+                {downloadSuccess ? (
+                  <>
+                    <Check size={14} style={{ color: '#25D366' }} />
+                    <span style={{ color: '#25D366' }}>¡Descargado!</span>
+                  </>
+                ) : (
+                  <>
+                    <Download size={14} />
+                    <span>Descargar Ticket (PNG)</span>
+                  </>
+                )}
+              </Button>
+
+              <Button
+                onClick={handleCopyImage}
+                disabled={isGeneratingImage}
+                variant="outline"
+                size="sm"
+                style={{ minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}
+              >
+                {copySuccess ? (
+                  <>
+                    <Check size={14} style={{ color: '#25D366' }} />
+                    <span style={{ color: '#25D366' }}>¡Copiado!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={14} />
+                    <span>Copiar Imagen</span>
+                  </>
+                )}
+              </Button>
+            </div>
+
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.4', marginTop: '0.2rem' }}>
+              💡 En tu celular WhatsApp se abrirá con el ticket adjunto. En tu PC se descargará el ticket para adjuntarlo o pegarlo con Ctrl+V.
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '0.4rem' }}>
               <button 
-                onClick={handleClose} 
+                onClick={handleClearTicket} 
                 type="button"
                 className="text-muted"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '11px', textTransform: 'uppercase', textDecoration: 'underline', padding: '0.4rem' }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '11px', textTransform: 'uppercase', textDecoration: 'underline', padding: '0.3rem', minHeight: '44px', display: 'inline-flex', alignItems: 'center' }}
               >
-                Cerrar Ventana (Pase Guardado)
+                Modificar Datos
+              </button>
+              <button 
+                onClick={onClose} 
+                type="button"
+                className="text-muted"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '11px', textTransform: 'uppercase', textDecoration: 'underline', padding: '0.3rem', minHeight: '44px', display: 'inline-flex', alignItems: 'center' }}
+              >
+                Cerrar
               </button>
             </div>
-
           </div>
-        )}
-
-      </div>
-    </div>
+        </div>
+      )}
+    </Modal>
   );
 }

@@ -82,7 +82,7 @@ export default function Navbar({ onOpenPassModal }) {
               className="btn btn-primary full-width"
               type="button"
             >
-              <span>Pase Gratis 1 Día</span>
+              <span>Pase Gratis 1 Semana</span>
               <ArrowRight size={16} />
             </button>
           </div>
@@ -95,14 +95,16 @@ export default function Navbar({ onOpenPassModal }) {
             className="btn btn-primary"
             type="button"
           >
-            <span>Pase Gratis 1 Día</span>
+            <span>Pase Gratis 1 Semana</span>
             <ArrowRight size={16} />
           </button>
 
           <button
             className={`menu-toggle ${mobileMenuOpen ? 'active' : ''}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Abrir menú de navegación"
+            aria-label={mobileMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="primary-navigation"
             type="button"
           >
             {mobileMenuOpen ? <X size={24} color="#fff" /> : <Menu size={24} color="#fff" />}

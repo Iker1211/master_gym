@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Send, Sparkles } from 'lucide-react';
-import { getMantaScheduleStatus } from '../utils/mantaSchedule';
+import { useGymSchedule } from '../hooks/useGymSchedule';
 
 export default function MobileBar({ onOpenPassModal }) {
-  const [scheduleStatus, setScheduleStatus] = useState(() => getMantaScheduleStatus('uleam'));
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setScheduleStatus(getMantaScheduleStatus('uleam'));
-    }, 60000);
-    return () => clearInterval(timer);
-  }, []);
+  const scheduleStatus = useGymSchedule('uleam');
 
   return (
-    <aside aria-label="Acciones rápidas de contacto" className="mobile-sticky-bar">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+    <aside 
+      aria-label="Acciones rápidas de contacto" 
+      className="mobile-sticky-bar"
+      style={{
+        paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom, 0px))',
+        minHeight: '64px'
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
           <span className={`status-dot ${scheduleStatus.isOpen ? 'status-dot-open' : 'status-dot-closed'}`} style={{ width: '6px', height: '6px' }}></span>
           <span style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.1em', color: scheduleStatus.isOpen ? 'var(--accent)' : 'var(--text-muted)', fontWeight: 'bold' }}>
@@ -32,18 +32,38 @@ export default function MobileBar({ onOpenPassModal }) {
           target="_blank" 
           rel="noopener noreferrer" 
           className="btn btn-secondary"
-          style={{ padding: '0.55rem 0.85rem', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+          style={{ 
+            minHeight: '44px', 
+            padding: '0.6rem 0.95rem', 
+            fontSize: '12px', 
+            fontWeight: 'bold', 
+            textTransform: 'uppercase', 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: '0.4rem',
+            borderRadius: 'var(--radius-full)'
+          }}
         >
-          <Send size={12} />
+          <Send size={14} />
           <span>WhatsApp</span>
         </a>
         <button 
           onClick={onOpenPassModal} 
           className="btn btn-primary"
-          style={{ padding: '0.55rem 1rem', fontSize: '11px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.35rem', boxShadow: '0 0 16px var(--primary-glow)' }}
+          style={{ 
+            minHeight: '44px', 
+            padding: '0.6rem 1.1rem', 
+            fontSize: '12px', 
+            fontWeight: 'bold', 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: '0.4rem', 
+            boxShadow: '0 0 16px var(--primary-glow)',
+            borderRadius: 'var(--radius-full)'
+          }}
           type="button"
         >
-          <Sparkles size={12} />
+          <Sparkles size={14} />
           <span>Pase Gratis</span>
         </button>
       </div>

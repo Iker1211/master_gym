@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import RhinoWatermark from './RhinoWatermark';
 
 const FAQ_ITEMS = [
   {
     id: 1,
-    question: '¿Cómo solicito el Pase de Prueba Gratuito de 1 día?',
-    answer: 'Solo debes hacer clic en el botón "Pase Gratis", ingresar tu nombre, número de WhatsApp y elegir la sede que deseas visitar (ULEAM o La Proaño). Recibirás tu pase digital de inmediato y podrás presentarlo en recepción con tu cédula de identidad.'
+    question: '¿Cómo solicito el Pase de Prueba Gratuito de 1 semana?',
+    answer: 'Solo debes hacer clic en el botón "Pase Gratis", ingresar tu nombre, número de WhatsApp y elegir la sede que deseas visitar (ULEAM o La Proaño). Recibirás tu pase digital de 1 semana de inmediato, el cual podrás descargar como imagen o compartir directamente por WhatsApp para presentarlo en recepción.'
   },
   {
     id: 2,
@@ -37,6 +38,7 @@ export default function Faq() {
 
   return (
     <section id="faq" className="section">
+      <RhinoWatermark variant="guardian" position="left" opacity={0.25} />
       <div className="container">
         
         <div className="faq-grid">
