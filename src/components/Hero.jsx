@@ -19,8 +19,8 @@ const STANDOUT_ATTRIBUTES = [
   {
     id: 'espacio',
     value: '+1,650m²',
-    label: 'Espacio Total',
-    detail: 'ULEAM & La Proaño • 2 Macro Sedes',
+    label: 'Superficie Total',
+    tag: 'ULEAM & Proaño',
     icon: Maximize2,
     accentClass: 'text-gradient',
     iconStyle: 'icon-pink',
@@ -30,7 +30,7 @@ const STANDOUT_ATTRIBUTES = [
     id: 'sedes',
     value: '2 Sedes',
     label: 'Puntos Clave',
-    detail: 'ULEAM 2da Entrada & Mega Proaño',
+    tag: 'Manta',
     icon: MapPin,
     accentClass: 'text-yellow',
     iconStyle: 'icon-yellow',
@@ -40,7 +40,7 @@ const STANDOUT_ATTRIBUTES = [
     id: 'precio',
     value: '$1.50',
     label: 'Pase Diario',
-    detail: 'Entrena hoy sin matrículas ni ataduras',
+    tag: 'Sin Matrícula',
     icon: Zap,
     accentClass: 'text-white',
     iconStyle: 'icon-pink',
@@ -50,7 +50,7 @@ const STANDOUT_ATTRIBUTES = [
     id: 'contratos',
     value: '0',
     label: 'Contratos Forzosos',
-    detail: 'Paga diario, quincenal o mes libre',
+    tag: 'Cero Amarras',
     icon: ShieldCheck,
     accentClass: 'text-yellow',
     iconStyle: 'icon-yellow',
@@ -58,7 +58,9 @@ const STANDOUT_ATTRIBUTES = [
   },
   {
     id: 'maquinaria',
-    value: 'Hierro Real & Leverage',
+    value: 'Hierro Real',
+    label: 'Línea Leverage',
+    tag: 'Biomecánica',
     icon: Dumbbell,
     accentClass: 'text-gradient',
     iconStyle: 'icon-pink',
@@ -67,8 +69,8 @@ const STANDOUT_ATTRIBUTES = [
   {
     id: 'rating',
     value: '4.9 ★',
-    label: 'Calificación Google',
-    detail: 'Comunidad atleta más valorada en Manta',
+    label: 'Google Reviews',
+    tag: 'Comunidad Atleta',
     icon: Award,
     accentClass: 'text-yellow',
     iconStyle: 'icon-yellow',
@@ -78,7 +80,7 @@ const STANDOUT_ATTRIBUTES = [
     id: 'horario',
     value: '5:30 AM',
     label: 'Apertura Temprana',
-    detail: 'Lunes a Sábado continuo sin cortes',
+    tag: 'Lun a Sáb',
     icon: Clock,
     accentClass: 'text-gradient',
     iconStyle: 'icon-pink',
@@ -216,7 +218,7 @@ export default function Hero({ onOpenPassModal }) {
         </div>
       </div>
 
-      {/* Infinite Standout Attributes Marquee */}
+      {/* Infinite Standout Attributes Marquee (Organic Fluid Athletic Ribbon) */}
       <div 
         className="hero-marquee-wrapper" 
         role="region" 
@@ -228,35 +230,34 @@ export default function Hero({ onOpenPassModal }) {
             {STANDOUT_ATTRIBUTES.map((item) => {
               const IconComp = item.icon;
               return (
-                <button
-                  key={`hero-attr-1-${item.id}`}
-                  type="button"
-                  onClick={() => handleAttributeClick(item)}
-                  className={`hero-marquee-card ${item.accentClass === 'text-yellow' ? 'card-accent-yellow' : 'card-accent-pink'}`}
-                  title={item.detail ? `${item.value} ${item.label || ''}: ${item.detail}` : item.value}
-                >
-                  <div className={`hero-marquee-icon-box ${item.iconStyle}`}>
-                    <IconComp size={18} />
-                  </div>
-                  <div className="hero-marquee-body">
-                    <div className="hero-marquee-header">
-                      <span className={`hero-marquee-value ${item.accentClass}`}>
+                <React.Fragment key={`hero-attr-1-${item.id}`}>
+                  <button
+                    type="button"
+                    onClick={() => handleAttributeClick(item)}
+                    className={`hero-marquee-capsule ${item.accentClass === 'text-yellow' ? 'capsule-accent-yellow' : 'capsule-accent-pink'}`}
+                    title={item.tag ? `${item.value} — ${item.label} (${item.tag})` : `${item.value} — ${item.label}`}
+                  >
+                    <div className={`hero-capsule-orb ${item.iconStyle}`}>
+                      <IconComp size={15} />
+                    </div>
+                    <div className="hero-capsule-content">
+                      <span className={`hero-capsule-val ${item.accentClass}`}>
                         {item.value}
                       </span>
-                      {item.label && (
-                        <span className="hero-marquee-label">
-                          {item.label}
+                      <span className="hero-capsule-sep">•</span>
+                      <span className="hero-capsule-lbl">
+                        {item.label}
+                      </span>
+                      {item.tag && (
+                        <span className="hero-capsule-badge">
+                          {item.tag}
                         </span>
                       )}
                     </div>
-                    {item.detail && (
-                      <div className="hero-marquee-meta">
-                        <span className="hero-marquee-detail">{item.detail}</span>
-                      </div>
-                    )}
-                  </div>
-                  <ChevronRight size={14} className="hero-marquee-arrow" aria-hidden="true" />
-                </button>
+                    <ChevronRight size={13} className="hero-capsule-arrow" aria-hidden="true" />
+                  </button>
+                  <span className="hero-marquee-spark" aria-hidden="true">✦</span>
+                </React.Fragment>
               );
             })}
           </div>
@@ -266,35 +267,34 @@ export default function Hero({ onOpenPassModal }) {
             {STANDOUT_ATTRIBUTES.map((item) => {
               const IconComp = item.icon;
               return (
-                <button
-                  key={`hero-attr-2-${item.id}`}
-                  type="button"
-                  tabIndex={-1}
-                  onClick={() => handleAttributeClick(item)}
-                  className={`hero-marquee-card ${item.accentClass === 'text-yellow' ? 'card-accent-yellow' : 'card-accent-pink'}`}
-                >
-                  <div className={`hero-marquee-icon-box ${item.iconStyle}`}>
-                    <IconComp size={18} />
-                  </div>
-                  <div className="hero-marquee-body">
-                    <div className="hero-marquee-header">
-                      <span className={`hero-marquee-value ${item.accentClass}`}>
+                <React.Fragment key={`hero-attr-2-${item.id}`}>
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    onClick={() => handleAttributeClick(item)}
+                    className={`hero-marquee-capsule ${item.accentClass === 'text-yellow' ? 'capsule-accent-yellow' : 'capsule-accent-pink'}`}
+                  >
+                    <div className={`hero-capsule-orb ${item.iconStyle}`}>
+                      <IconComp size={15} />
+                    </div>
+                    <div className="hero-capsule-content">
+                      <span className={`hero-capsule-val ${item.accentClass}`}>
                         {item.value}
                       </span>
-                      {item.label && (
-                        <span className="hero-marquee-label">
-                          {item.label}
+                      <span className="hero-capsule-sep">•</span>
+                      <span className="hero-capsule-lbl">
+                        {item.label}
+                      </span>
+                      {item.tag && (
+                        <span className="hero-capsule-badge">
+                          {item.tag}
                         </span>
                       )}
                     </div>
-                    {item.detail && (
-                      <div className="hero-marquee-meta">
-                        <span className="hero-marquee-detail">{item.detail}</span>
-                      </div>
-                    )}
-                  </div>
-                  <ChevronRight size={14} className="hero-marquee-arrow" aria-hidden="true" />
-                </button>
+                    <ChevronRight size={13} className="hero-capsule-arrow" aria-hidden="true" />
+                  </button>
+                  <span className="hero-marquee-spark" aria-hidden="true">✦</span>
+                </React.Fragment>
               );
             })}
           </div>

@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import RhinoWatermark from './RhinoWatermark';
 
 export default function Footer() {
   return (
     <footer className="footer" style={{ position: 'relative', overflow: 'hidden' }}>
-      <RhinoWatermark variant="footer" position="center" opacity={0.14} />
       <div className="container footer-grid" style={{ position: 'relative', zIndex: 2 }}>
         
         {/* Brand column */}

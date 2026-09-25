@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Navigation } from 'lucide-react';
 import { useLenis } from 'lenis/react';
-import RhinoWatermark from './RhinoWatermark';
 import InteractiveMap from './InteractiveMap';
 import BranchCard from './sedes/BranchCard';
 import FacilitiesBento from './sedes/FacilitiesBento';
@@ -36,15 +35,13 @@ export default function SedesInstalaciones() {
 
   return (
     <section id="sedes" className="section sedes-instalaciones-section">
-      <RhinoWatermark variant="monolith" position="top-right" opacity={0.24} />
-      <RhinoWatermark variant="contour" position="left" opacity={0.16} style={{ top: '55%' }} />
       <div className="container">
         
         {/* ================= Master Section Header ================= */}
         <div className="section-header unified-header">
           <div className="section-tag">
             <span className="ping-indicator ping-indicator-yellow"></span>
-            <span>INFRAESTRUCTURA DE ÉLITE • 2 PUNTOS EN MANTA</span>
+            <span>SEDES E INSTALACIONES</span>
           </div>
 
           <h2 className="section-title unified-title">
@@ -53,8 +50,7 @@ export default function SedesInstalaciones() {
           </h2>
 
           <p className="section-desc unified-desc">
-            Más de 1,650 m² de maquinaria clásica multifuncional y peso libre distribuidos en dos puntos estratégicos de Manta.
-            Equipamiento robusto sin esperas, ambiente ventilado, casilleros y duchas para salir listo después de entrenar.
+            Más de 1,650 m² de equipamiento de alto rendimiento y peso libre distribuidos en dos puntos estratégicos de Manta.
           </p>
 
           {/* Unified KPI Ticker / Live Stats Strip */}
@@ -106,13 +102,13 @@ export default function SedesInstalaciones() {
             <div>
               <div className="section-tag" style={{ marginBottom: '0.4rem' }}>
                 <Navigation size={13} style={{ color: 'var(--accent)' }} />
-                <span>// Georreferenciación & Rutas Viales en Manta</span>
+                <span>UBICACIONES EN MANTA</span>
               </div>
               <h3 className="font-display text-white" style={{ fontSize: '2rem', textTransform: 'uppercase', lineHeight: '1.1' }}>
-                MAPA INTERACTIVO & ACCESOS EN MANTA
+                MAPA INTERACTIVO DE SEDES
               </h3>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
-                Explora la ubicación satelital, distancias y vías rápidas de acceso entre ambas sedes de Master Gym.
+                Ubica tu sede más cercana y planifica tu llegada.
               </p>
             </div>
 

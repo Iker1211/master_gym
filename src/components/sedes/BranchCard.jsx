@@ -96,30 +96,32 @@ export default function BranchCard({ branchId, selectedBranch, onFocusBranch, on
             </span>
           </div>
 
-          <p style={{ fontSize: '14px', color: 'rgba(244, 244, 246, 0.82)', lineHeight: '1.6', marginBottom: '1.25rem' }}>
+          <p style={{ fontSize: '14px', color: 'rgba(244, 244, 246, 0.82)', lineHeight: '1.5', marginBottom: '1rem' }}>
             {isUleam 
-              ? 'Ubicada estratégicamente frente a la segunda entrada de la ULEAM. La sede perfecta para universitarios y profesionales: maquinaria clásica multifuncional completa, poleas dobles regulables, peso libre macizo, casilleros para mochilas y duchas para salir listo a clases o trabajo.'
-              : 'El templo del entrenamiento pesado en Manta: 1,200 m² de nave industrial con zona olímpica de halterofilia, racks masivos, área funcional y amplio parqueadero privado sin costo para socios.'
+              ? 'Frente a la 2da entrada de la ULEAM. Maquinaria completa, poleas regulables, peso libre, casilleros y duchas.'
+              : '1,200 m² con zona olímpica de halterofilia, racks de potencia, área funcional y parqueadero privado.'
             }
           </p>
 
           {/* Specs Grid */}
           <div className="specs-grid">
             <div>
-              <span className="specs-label">Ubicación:</span>
-              <span className="specs-val">{branch.address}</span>
-            </div>
-            <div>
-              <span className="specs-label">Tarifas Transparentes:</span>
-              <span className="font-mono" style={{ fontWeight: 'bold', color: accentColor }}>Día $1.50 • Mes $20 ($15 c/u dúo)</span>
-            </div>
-            <div>
               <span className="specs-label">Lun–Vie:</span>
               <span className="font-mono specs-val" style={{ fontWeight: 'bold' }}>{branch.hours.weekday}</span>
             </div>
             <div>
-              <span className="specs-label">Sáb / Dom:</span>
-              <span className="font-mono specs-val">Sáb {branch.hours.saturday}</span>
+              <span className="specs-label">Sábados:</span>
+              <span className="font-mono specs-val">{branch.hours.saturday}</span>
+            </div>
+            <div>
+              <span className="specs-label">Domingos:</span>
+              <span className="font-mono specs-val">{branch.hours.sunday}</span>
+            </div>
+            <div>
+              <span className="specs-label">Instalación:</span>
+              <span className="specs-val" style={{ color: accentColor, fontWeight: '600' }}>
+                {isUleam ? 'Lockers & Duchas' : 'Parqueadero Privado'}
+              </span>
             </div>
           </div>
 
@@ -127,7 +129,7 @@ export default function BranchCard({ branchId, selectedBranch, onFocusBranch, on
           <div className="branch-zones-preview">
             <span className="branch-zones-title font-mono">
               <Sparkles size={12} style={{ color: accentColor }} />
-              Equipamiento destacado en {branch.name}:
+              Destacado:
             </span>
             <div className="tags-list">
               {branch.highlights.map((h, i) => (
@@ -144,9 +146,6 @@ export default function BranchCard({ branchId, selectedBranch, onFocusBranch, on
               <div className="location-pin-title font-mono">
                 <span className={`ping-indicator ${isUleam ? 'ping-indicator-yellow' : 'ping-indicator-pink'}`}></span>
                 <span style={{ color: accentColor }}>{branch.shortName.toUpperCase()}</span>
-                <span className="text-muted" style={{ fontWeight: 'normal', fontSize: '10px' }}>
-                  ({branch.coordinates.lat}, {branch.coordinates.lng})
-                </span>
               </div>
               <span className="location-landmark">{branch.tagline}</span>
             </div>

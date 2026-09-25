@@ -14,13 +14,13 @@ export default function FacilitiesBento({ selectedBranch }) {
       <div className="section-header facilities-header">
         <div className="section-tag">
           <span className="ping-indicator ping-indicator-yellow"></span>
-          <span>HIERRO CLÁSICO DE ALTO RENDIMIENTO • INGENIERÍA BIOMECÁNICA</span>
+          <span>ZONAS & MAQUINARIA</span>
         </div>
         <h3 className="section-title facilities-title">
           MAQUINARIA Y ZONAS DE ENTRENAMIENTO
         </h3>
         <p className="section-desc facilities-desc">
-          Línea completa de máquinas de palanca convergente/divergente (Leverage), poleas regulables en altura, jaulas olímpicas y mancuernas macizas calibradas de hasta 60 kg.
+          Línea completa de palanca, poleas regulables, jaulas olímpicas y mancuernas macizas hasta 60 kg.
         </p>
 
         {/* Category Filter Pills */}
@@ -114,7 +114,6 @@ export default function FacilitiesBento({ selectedBranch }) {
                 </div>
 
                 <div className="bento-text-block">
-                  <span className="bento-subtitle font-mono">{zone.subtitle}</span>
                   <h4 className="bento-title font-display text-white">{zone.title}</h4>
                   <p className="bento-desc">{zone.desc}</p>
                 </div>

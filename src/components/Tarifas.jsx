@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Check, Sparkles, Users, User, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
-import RhinoWatermark from './RhinoWatermark';
 
 export default function Tarifas({ onOpenPassModal }) {
   const [isDuo, setIsDuo] = useState(false);
@@ -10,7 +9,6 @@ export default function Tarifas({ onOpenPassModal }) {
 
   return (
     <section id="planes" className="section">
-      <RhinoWatermark variant="stoic" position="center" opacity={0.20} />
       <div className="container">
         
         <div className="section-header text-center">

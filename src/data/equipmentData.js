@@ -3,88 +3,80 @@ export const EQUIPMENT_ZONES = [
     id: 'peso_libre',
     category: 'fuerza',
     title: 'Área de Peso Libre & Racks',
-    subtitle: 'Fuerza Pesada & Hipertrofia',
-    badge: 'Fuerza & Hipertrofia',
+    badge: 'Peso Libre',
     badgeColor: 'pink',
     availability: 'Ambas Sedes',
     image: '/assets/peso_libre.jpg',
     colSpan: 'col-7',
-    desc: 'Mancuernas de uretano calibradas de 2.5 kg hasta 60 kg, jaulas de potencia reforzadas, bancos olímpicos planos e inclinados con plataforma de spotter.',
+    desc: 'Mancuernas calibradas hasta 60 kg, jaulas de potencia y bancas multi-ángulo.',
     specs: [
-      'Mancuernas Uretano hasta 60 kg',
-      'Jaulas de Potencia & Racks Power',
-      'Bancas Profesionales Multi-ángulo',
-      'Zona Grip & Magnesio Permitido'
+      'Mancuernas hasta 60 kg',
+      'Jaulas Power & Racks',
+      'Bancos Multi-ángulo'
     ]
   },
   {
     id: 'maquinaria_leverage',
     category: 'biomecanica',
-    title: 'Línea Leverage & Biomecánica',
-    subtitle: 'Iso-Lateral & Trayectoria Guiada',
-    badge: 'Biomecánica & Carga',
+    title: 'Línea Leverage Biomecánica',
+    badge: 'Biomecánica',
     badgeColor: 'yellow',
     availability: 'Ambas Sedes',
     image: '/assets/maquinaria_leverage.jpg',
     colSpan: 'col-5',
-    desc: 'Maquinaria de palanca Iso-Lateral con movimiento divergente y convergente. Elimina puntos muertos en la curva de fuerza y previene asimetrías articulares.',
+    desc: 'Máquinas de palanca con trayectoria convergente y divergente para tensión muscular continua.',
     specs: [
-      'Brazos Independientes Iso-Lateral',
-      'Carga en Discos Olímpicos',
-      'Curva de Resistencia Continua',
-      'Ajustes Ergonómicos Rápidos'
+      'Brazos Iso-Lateral',
+      'Carga en Discos',
+      'Ajustes Ergonómicos'
     ]
   },
   {
     id: 'zona_olimpica',
     category: 'fuerza',
-    title: 'Barras Olímpicas & Discos Bumper',
-    subtitle: 'Halterofilia & Levantamiento',
-    badge: 'Levantamiento Olímpico',
+    title: 'Barras Olímpicas & Bumper',
+    badge: 'Halterofilia',
     badgeColor: 'pink',
     availability: 'Ambas Sedes • Plataformas en La Proaño',
     image: '/assets/zona_olimpica.jpg',
     colSpan: 'col-4',
-    desc: 'Barras de acero templado calibradas a 20 kg (28 mm), rodamientos de aguja para rotación suave en snatch y clean & jerk, más discos bumper drop-ready.',
+    desc: 'Barras calibradas de 20 kg y discos bumper drop-ready para levantamiento.',
     specs: [
-      'Barras Olímpicas 20 kg de Acero Calibrado',
-      'Discos Bumper de Caucho Virgen',
-      'Collares Lock-Jaw de Bloqueo Rápido'
+      'Barras Acero 20 kg',
+      'Discos Bumper',
+      'Collares Lock-Jaw'
     ]
   },
   {
     id: 'zona_selectorizada',
     category: 'biomecanica',
     title: 'Torres Pin-Select & Poleas',
-    subtitle: 'Aislamiento & Resistencia Fluida',
-    badge: 'Aislamiento & Poleas',
+    badge: 'Poleas',
     badgeColor: 'yellow',
     availability: 'Ambas Sedes',
     image: '/assets/zona_selectorizada.jpg',
     colSpan: 'col-4',
-    desc: 'Torres multipropósito y cruces de poleas regulables en milímetros de altura. Torres selectorizadas de placas selladas con selector de pin instantáneo.',
+    desc: 'Torres selectorizadas de placas guiadas y cruces regulables con agarres ergonómicos.',
     specs: [
-      'Columnas de Placas Guiadas de Alta Resistencia',
-      'Poleas de Giro 180° de Aluminio Aeronáutico',
-      'Variedad de Agarres Ergonómicos de Agarre Rápido'
+      'Placas Guiadas',
+      'Poleas Giro 180°',
+      'Agarres Ergonómicos'
     ]
   },
   {
     id: 'asesoria_fitness',
     category: 'funcional',
     title: 'Zona Funcional & Asesoría',
-    subtitle: 'Rendimiento Atlético & Acondicionamiento',
-    badge: 'Rendimiento & Asesoría',
+    badge: 'Funcional',
     badgeColor: 'pink',
     availability: 'Zona Funcional en La Proaño • Asesoría en Ambas',
     image: '/assets/asesoria_fitness.jpg',
     colSpan: 'col-4',
-    desc: 'Área dedicada a ejercicios funcionales, calistenia y acondicionamiento físico en Sede La Proaño, complementada con asesoría e inducción de inicio por entrenadores en ambas sedes.',
+    desc: 'Espacio funcional y calistenia con inducción inicial por entrenadores.',
     specs: [
-      'Área de Entrenamiento Funcional',
-      'Barras de Dominadas y Fondos',
-      'Balones Medicinales y Cuerdas',
-      'Inducción Inicial por Entrenadores'
+      'Área Funcional',
+      'Barras & Fondos',
+      'Inducción por Entrenadores'
     ]
   }
 ];

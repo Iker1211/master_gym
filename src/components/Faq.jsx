@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import RhinoWatermark from './RhinoWatermark';
 
 const FAQ_ITEMS = [
   {
@@ -38,7 +37,6 @@ export default function Faq() {
 
   return (
     <section id="faq" className="section">
-      <RhinoWatermark variant="guardian" position="left" opacity={0.25} />
       <div className="container">
         
         <div className="faq-grid">
