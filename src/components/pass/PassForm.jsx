@@ -43,6 +43,8 @@ export default function PassForm({ formData, setFormData, onSubmit }) {
             required 
             placeholder="Ej. Carlos Mendoza" 
             className="form-input"
+            autoComplete="name"
+            enterKeyHint="next"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
@@ -55,6 +57,9 @@ export default function PassForm({ formData, setFormData, onSubmit }) {
             required 
             placeholder="Ej. 0991234567" 
             className="form-input"
+            autoComplete="tel"
+            inputMode="tel"
+            enterKeyHint="done"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           />
@@ -62,7 +67,7 @@ export default function PassForm({ formData, setFormData, onSubmit }) {
 
         <div className="form-group">
           <label className="form-label" style={{ fontSize: '12px' }}>Selecciona la Sede que deseas visitar</label>
-          <div className="radio-group" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
+          <div className="radio-group" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.75rem' }}>
             <label 
               className="radio-card" 
               style={{ 

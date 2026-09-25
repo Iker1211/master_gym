@@ -37,7 +37,7 @@ export default function Modal({
 
   return (
     <div 
-      className="modal-overlay"
+      className={`modal-overlay ${isOpen ? 'open' : ''}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           onClose();

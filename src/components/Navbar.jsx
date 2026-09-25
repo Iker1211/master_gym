@@ -17,10 +17,30 @@ export default function Navbar({ onOpenPassModal }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const closeMenu = () => setMobileMenuOpen(false);
 
   return (
-    <header className={`main-header navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
+    <>
+      {mobileMenuOpen && (
+        <div 
+          className="nav-backdrop active" 
+          onClick={closeMenu} 
+          aria-hidden="true" 
+        />
+      )}
+      <header className={`main-header navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
       <div className="container header-container nav-container">
         
         {/* Brand Logo with Rhino */}
@@ -113,5 +133,6 @@ export default function Navbar({ onOpenPassModal }) {
 
       </div>
     </header>
+    </>
   );
 }

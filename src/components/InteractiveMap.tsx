@@ -156,6 +156,19 @@ export default function InteractiveMap({
       : null
   );
   const [isCopied, setIsCopied] = useState<string | null>(null);
+  const [mobileDragEnabled, setMobileDragEnabled] = useState(false);
+
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+    if (typeof window !== 'undefined' && window.innerWidth <= 768 && interactive) {
+      if (mobileDragEnabled) {
+        map.dragging.enable();
+      } else {
+        map.dragging.disable();
+      }
+    }
+  }, [mobileDragEnabled, interactive]);
 
   // Helper to create custom cyber HTML pin marker
   const createCustomMarkerIcon = (branch: GymLocation, isActive: boolean) => {
@@ -285,13 +298,16 @@ export default function InteractiveMap({
       initialZoom = loc.zoom;
     }
 
-    // Create Leaflet map instance
+    // Create Leaflet map instance (on mobile, disable dragging by default to avoid vertical scroll hijacking)
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const initialDragging = interactive && !isMobile;
+
     const map = L.map(mapContainerRef.current, {
       center: initialCenter,
       zoom: initialZoom,
       zoomControl: false,
       scrollWheelZoom: false,
-      dragging: interactive,
+      dragging: initialDragging,
       touchZoom: interactive,
       doubleClickZoom: interactive,
       attributionControl: true
@@ -328,8 +344,9 @@ export default function InteractiveMap({
         alt: branch.name
       }).addTo(map);
 
+      const isNarrow = typeof window !== 'undefined' && window.innerWidth <= 400;
       marker.bindPopup(buildPopupHtml(branch), {
-        maxWidth: 320,
+        maxWidth: isNarrow ? 260 : 290,
         className: 'mastergym-custom-popup',
         closeButton: true
       });
@@ -467,6 +484,18 @@ export default function InteractiveMap({
             <span>LAT: -0.9754° | LNG: -80.7235°</span>
           </div>
         </div>
+
+        {/* Mobile touch toggle button */}
+        {interactive && (
+          <button
+            type="button"
+            className={`mobile-map-lock-btn ${mobileDragEnabled ? 'active' : ''}`}
+            onClick={() => setMobileDragEnabled(prev => !prev)}
+            aria-label={mobileDragEnabled ? 'Fijar mapa' : 'Activar arrastre de mapa'}
+          >
+            <span>{mobileDragEnabled ? '✓ Mapa desbloqueado' : '🖐 Toca para mover mapa'}</span>
+          </button>
+        )}
       </div>
 
       {/* Location Details Footer Card (Full mode when a location is active or selected) */}

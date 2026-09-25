@@ -245,7 +245,7 @@ export default function PassModal({ isOpen, onClose }) {
               </span>
             </Button>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
+            <div className="pass-modal-subactions">
               <Button
                 onClick={handleDownloadImage}
                 disabled={isGeneratingImage}

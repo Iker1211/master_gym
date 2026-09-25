@@ -319,8 +319,7 @@ export default function Tarifas({ onOpenPassModal }) {
           </div>
           <button 
             onClick={onOpenPassModal}
-            className="btn btn-outline"
-            style={{ fontSize: '12px', padding: '0.55rem 1.15rem' }}
+            className="btn btn-outline habit-deck-btn"
             type="button"
           >
             Probar 1 Semana Gratis Primero →
@@ -334,7 +333,11 @@ export default function Tarifas({ onOpenPassModal }) {
             <strong style={{ color: '#FFF' }}>MÉTODOS DE PAGO LOCALES:</strong>
             <span className="text-muted">Transferencia Bancaria (Pichincha, Guayaquil), Deuna, Tarjetas de Débito/Crédito y Efectivo en caja.</span>
           </div>
-          <button onClick={onOpenPassModal} style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontWeight: 'bold', textTransform: 'uppercase', textDecoration: 'underline', font: 'inherit', whiteSpace: 'nowrap' }}>
+          <button 
+            onClick={onOpenPassModal} 
+            className="payment-bar-cta"
+            type="button"
+          >
             ¿Aún indeciso? Reclama tu pase gratis de 1 semana →
           </button>
         </div>
